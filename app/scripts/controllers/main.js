@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularStripeTestApp')
-    .controller('MainCtrl', function ($scope, $http, API) {
+    .controller('MainCtrl', function ($scope, $http, API, stripeFactory) {
 
         /**
          * handle response errors
@@ -39,14 +39,9 @@ angular.module('angularStripeTestApp')
              */
             saveToken = function (success) {
 
-                console.log('save token', success);
-                $http.post(API + '/pay', { token: success.id })
-                    .success(function (response) {
-                        console.log('SUCCESS', arguments);
-                    })
-                    .error(function (error) {
-                        console.log('ERROR', arguments);
-                    });
+                stripeFactory.pay({
+                    token: success.id
+                });
 
             };
 
@@ -88,9 +83,7 @@ angular.module('angularStripeTestApp')
             }, function (status, response) {
 
                 $scope.submitting = false;
-
                 resetErrors();
-
                 if (status === 402) {
                     handleError(response.error);
                 } else {
