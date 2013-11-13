@@ -8,27 +8,34 @@
 </div>
 
 <div class="container">
-        <form method="POST" id="payment-form" name="payment" role="form" ng-init="values = {}" ng-submit="pay(values)">
+        <form id="payment-form" name="form" role="form" ng-submit="pay(values)" novalidate="true">
             <span class="payment-errors"></span>
 
-            <div class="form-group">
+
+            <div class="form-group" ng-class="{ 'has-error' : (form.number.$invalid || values.number.error) && submitted }">
                 <label>Card Number</label>
-                    <input type="text" size="20" data-stripe="number" class="form-control" name="number" ng-model="values.number" />
+                <input type="text" size="20" class="form-control" name="number" ng-model="values.number.value" required/>
+                <span class="help-block" ng-if="values.number.error">{{ values.number.error }}</span>
             </div>
 
-            <div class="form-group">
-                <label>
-                    <span>CVC</span>
-                    <input type="text" size="4" data-stripe="cvc" class="form-control" name="cvc" ng-model="values.cvc"/>
-                </label>
+            <div class="form-group" ng-class="{ 'has-error' : (form.cvc.$invalid || values.cvc.error) && submitted }">
+                <label>CVC</label>
+                <input type="text" size="4" class="form-control" name="cvc" ng-pattern="/^\d{3}$/" ng-model="values.cvc.value" required/>
+                <span class="help-block" ng-if="values.cvc.error">{{ values.cvc.error }}</span>
             </div>
 
-            <div class="form-group">
-                <label>Expiration (MM/YYYY)</label>
-                <input type="text" size="2" data-stripe="exp-month" class="form-control" name="exp_month" ng-model="values.exp_month" />
-                <span> / </span>
-                <input type="text" size="4" data-stripe="exp-year" class="form-control" name="exp_year" ng-model="values.exp_year" />
+            <div class="form-group" ng-class="{ 'has-error' : (form.exp_month.$invalid || values.exp_month.error) && submitted }">
+                <label>Expiration MM</label>
+                <input type="text" size="2" class="form-control" name="exp_month" ng ng-model="values.exp_month.value" ng-pattern="/^\d{2}$/" required/>
+                <span class="help-block" ng-if="values.exp_month.error">{{ values.exp_month.error }}</span>
             </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : (form.exp_year.$invalid || values.exp_year.error) && submitted }">
+                <label>Expiration YYYY</label>
+                <input type="text" size="4" class="form-control" name="exp_year" ng-model="values.exp_year.value" ng-pattern="/^\d{4}$/" required/>
+                <span class="help-block" ng-if="values.exp_year.error">{{ values.exp_year.error }}</span>
+            </div>
+
 
             <button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Submit Payment</button>
         </form>
