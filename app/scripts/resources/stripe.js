@@ -2,8 +2,8 @@
 
 angular.module('angularStripeTestApp')
 
-    .factory('stripeFactory', function ($resource, API) {
-        return $resource(API + '/pay', {}, {
-            pay: { method: 'POST', isArray: false }
+    .factory('stripeFactory', function ($resource, PAYMENT_URL) {
+        return $resource(PAYMENT_URL, {}, {
+            pays: { method: 'POST', isArray: false }
         });
     });

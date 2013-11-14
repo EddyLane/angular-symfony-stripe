@@ -22,7 +22,9 @@
 
         "stripe/stripe-php": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "1.4.*@dev",
-        "friendsofsymfony/rest-bundle": "1.0.*@dev"
+        "friendsofsymfony/rest-bundle": "1.0.*@dev",
+        "nelmio/cors-bundle": "~1.0",
+        "jms/serializer-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

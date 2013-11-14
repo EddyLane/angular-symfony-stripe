@@ -1,2 +1,2 @@
 angular.module('angularStripeTestApp')
-    .constant('API', 'http://app.symfony-stripe.local/app_dev.php');
+    .constant('PAYMENT_URL', 'http://app.symfony-stripe.local/app_dev.php/pay');

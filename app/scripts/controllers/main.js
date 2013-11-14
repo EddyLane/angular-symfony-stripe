@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularStripeTestApp')
-    .controller('MainCtrl', function ($scope, $http, API, stripeFactory) {
+    .controller('MainCtrl', function ($scope, $http, stripeFactory) {
 
         /**
          * handle response errors
@@ -37,10 +37,10 @@ angular.module('angularStripeTestApp')
             /**
              * save response to database
              */
-            saveToken = function (success) {
+            saveToken = function (token) {
 
                 stripeFactory.pay({
-                    token: success.id
+                    token: token
                 });
 
             };
@@ -87,7 +87,7 @@ angular.module('angularStripeTestApp')
                 if (status === 402) {
                     handleError(response.error);
                 } else {
-                    saveToken(response);
+                    saveToken(response.id);
                 }
 
             });
