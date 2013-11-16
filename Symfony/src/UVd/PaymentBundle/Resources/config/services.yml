@@ -1,0 +1,16 @@
+parameters:
+    uvd.payment.base_manager.class: UVd\PaymentBundle\Manager\BaseManager
+    uvd.payment.entity.payment.class: UVd\PaymentBundle\Entity\Payment
+    uvd.payment.payment_manager.class: UVd\PaymentBundle\Manager\PaymentManager
+
+services:
+    uvd.payment.base_manager:
+        class:     %uvd.payment.base_manager.class%
+        abstract:  true
+        calls:
+            - [ setDoctrine, [ @doctrine ] ]
+
+    uvd.payment.payment_manager:
+        class: %uvd.payment.payment_manager.class%
+        parent: uvd.payment.base_manager
+        arguments: [%uvd.payment.entity.payment.class%]

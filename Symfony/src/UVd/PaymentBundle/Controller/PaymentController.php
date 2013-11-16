@@ -20,8 +20,11 @@ class PaymentController extends FOSRestController
      */
     public function postPayAction(ParamFetcher $paramFetcher)
     {
-        return $this->handleView(
-            ['token' => $paramFetcher->get('token')]
-        );
+        $manager = $this->get('uvd.payment.payment_manager');
+
+        $payment = $manager->create($paramFetcher->all());
+        $manager->save($payment);
+
+        return $payment;
     }
 }

@@ -39,7 +39,7 @@ angular.module('angularStripeTestApp')
              */
             saveToken = function (token) {
 
-                stripeFactory.pay({
+                stripeFactory.pays({
                     token: token
                 });
 

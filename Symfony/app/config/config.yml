@@ -84,6 +84,10 @@ sensio_framework_extra:
     router:  { annotations: true }
 
 fos_rest:
+    body_converter:
+        enabled: true
+        validate: true
+        validation_errors_argument: validationErrors # This is the default value
     routing_loader:
         default_format: json
     view:
