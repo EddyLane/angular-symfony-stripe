@@ -33,6 +33,12 @@ class Payment
      */
     private $token;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="payments")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var type
+     */
+    protected $user;
 
     /**
      * Get id

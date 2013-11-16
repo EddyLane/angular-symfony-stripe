@@ -17,7 +17,8 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_proxies: ~
-    session:         ~
+    session:
+        cookie_domain: .symfony-stripe.local
     fragments:       ~
 
 # Twig Configuration
@@ -82,6 +83,11 @@ nelmio_cors:
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: UVd\PaymentBundle\Entity\User
 
 fos_rest:
     body_converter:

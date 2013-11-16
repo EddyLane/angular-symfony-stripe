@@ -10,6 +10,7 @@
 namespace UVd\PaymentBundle\Manager;
 
 use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class BaseManager implements ManagerInterface
 {
@@ -17,6 +18,11 @@ class BaseManager implements ManagerInterface
      * @param string $className
      */
     protected $className;
+
+    /**
+     * @var \Symfony\Component\Security\Core\SecurityContext $securityContext
+     */
+    protected $securityContext;
 
     /**
      * @param Doctrine\ORM\EntityRepository $repository
@@ -33,6 +39,11 @@ class BaseManager implements ManagerInterface
     public function setClassName($className)
     {
         $this->className = $className;
+    }
+
+    public function setSecurityContext(SecurityContext $context)
+    {
+        $this->securityContext = $context;
     }
 
     // should really be protected...

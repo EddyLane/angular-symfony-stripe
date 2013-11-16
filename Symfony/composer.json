@@ -21,6 +21,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
 
         "stripe/stripe-php": "dev-master",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
         "friendsofsymfony/jsrouting-bundle": "1.4.*@dev",
         "friendsofsymfony/rest-bundle": "1.0.*@dev",
         "nelmio/cors-bundle": "~1.0",

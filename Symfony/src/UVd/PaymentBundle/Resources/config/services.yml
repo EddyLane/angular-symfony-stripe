@@ -1,7 +1,13 @@
 parameters:
     uvd.payment.base_manager.class: UVd\PaymentBundle\Manager\BaseManager
+
     uvd.payment.entity.payment.class: UVd\PaymentBundle\Entity\Payment
     uvd.payment.payment_manager.class: UVd\PaymentBundle\Manager\PaymentManager
+
+    uvd.payment.entity.user.class: UVd\PaymentBundle\Entity\User
+    uvd.payment.user_manager.class: UVd\PaymentBundle\Manager\UserManager
+
+    podcast.listener.before_controller.class: UVd\PaymentBundle\Listener\BeforeControllerListener
 
 services:
     uvd.payment.base_manager:
@@ -9,8 +15,21 @@ services:
         abstract:  true
         calls:
             - [ setDoctrine, [ @doctrine ] ]
+            - [ setSecurityContext, [ @security.context ] ]
 
     uvd.payment.payment_manager:
         class: %uvd.payment.payment_manager.class%
         parent: uvd.payment.base_manager
         arguments: [%uvd.payment.entity.payment.class%]
+
+    uvd.payment.user_manager:
+        class: %uvd.payment.user_manager.class%
+        parent: uvd.payment.base_manager
+        arguments: [%uvd.payment.entity.user.class%]
+
+    before_controller:
+        class: %podcast.listener.before_controller.class%
+        scope: request
+        tags:
+            - { name:'kernel.event_listener', event: 'kernel.controller', method: 'onKernelController' }
+        arguments:    [@security.context]
