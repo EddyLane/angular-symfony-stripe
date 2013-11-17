@@ -8,7 +8,7 @@
  */
 
 namespace UVd\PaymentBundle\Provider;
-require_once(dirname(__FILE__) ."/../../../../vendor/stripe/stripe-php/lib/Stripe.php");
+require_once(dirname(__FILE__) . "/../../../../vendor/stripe/stripe-php/lib/Stripe.php");
 
 use UVd\PaymentBundle\Entity\Payment;
 use Stripe;
@@ -34,14 +34,18 @@ class StripeProvider
     public function create(Payment $payment)
     {
         try {
-            $charge = Stripe_Charge::create(array(
+            $charge = Stripe_Charge::create([
                     "amount" => 1000, // amount in cents, again
                     "currency" => "usd",
                     "card" => $payment->getToken(),
-                    "description" => "payinguser@example.com")
-            );
-        } catch(Stripe_CardError $e) {
+                    "description" => "payinguser@example.com"
+            ]);
         }
+        catch (Stripe_CardError $e) {
+            throw $e;
+        }
+
+        $payment->setCompleted(true);
 
         return $charge;
     }

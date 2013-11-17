@@ -14,16 +14,14 @@ class PaymentController extends BaseController
     {
         $manager = $this->get('uvd.payment.payment_manager');
 
-        $stripe = $this->get('uvd.payment.stripe_provider');
-
         $payment = $manager->create(array_merge($paramFetcher->all(), [
             'user' => $this->user
         ]));
 
+        $this->get('uvd.payment.stripe_provider')->create($payment);
+
         $manager->save($payment);
 
-        $charge = $stripe->create($payment);
-
-        return $charge ? $payment : ['error' => 'fiuck'];
+        return $payment;
     }
 }

@@ -29,7 +29,6 @@ class Payment
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=255)
-     * @Expose
      */
     private $token;
 
@@ -39,6 +38,14 @@ class Payment
      * @var type
      */
     protected $user;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="completed", type="boolean", nullable=true)
+     * @Expose
+     */
+    private $completed = false;
 
     /**
      * Get id
@@ -107,6 +114,29 @@ class Payment
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set the success of this payment
+     *
+     * @param $completed
+     * @return $this
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Get the success of this payment
+     *
+     * @return bool
+     */
+    public function getCompleted()
+    {
+        return $this->completed;
     }
 
 }
