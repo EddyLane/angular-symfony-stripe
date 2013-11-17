@@ -29,14 +29,6 @@ class User extends BaseUser
     protected $payments;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * @param Payment $payment
      * @return $this
      */

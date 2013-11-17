@@ -59,6 +59,7 @@ class Payment
     {
         if($data !== null) {
             $this->setToken($data['token']);
+            $this->setUser($data['user']);
         }
     }
 
@@ -84,4 +85,28 @@ class Payment
     {
         return $this->token;
     }
+
+    /**
+     * Set user
+     *
+     * @param User $user
+     * @return $this
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return type
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
 }

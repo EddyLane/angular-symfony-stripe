@@ -17,8 +17,7 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_proxies: ~
-    session:
-        cookie_domain: .symfony-stripe.local
+    session:         ~
     fragments:       ~
 
 # Twig Configuration

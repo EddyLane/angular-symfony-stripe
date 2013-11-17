@@ -4,20 +4,29 @@ namespace UVd\PaymentBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use UVd\PaymentBundle\Controller\PaymentController;
+use UVd\PaymentBundle\Controller\BaseController;
 /**
  * @author Matt Drollette <matt@drollette.com>
  */
 class BeforeControllerListener
 {
 
-    protected $security_context;
+    /**
+     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     */
+    protected $securityContext;
 
-    public function __construct(SecurityContextInterface $security_context)
+    /**
+     * @param SecurityContextInterface $securityContext
+     */
+    public function __construct(SecurityContextInterface $securityContext)
     {
-        $this->security_context = $security_context;
+        $this->securityContext = $securityContext;
     }
 
+    /**
+     * @param FilterControllerEvent $event
+     */
     public function onKernelController(FilterControllerEvent $event)
     {
         $controller = $event->getController();
@@ -34,9 +43,9 @@ class BeforeControllerListener
             return;
         }
 
-        if ($controllerObject instanceof PaymentController) {
+        if ($controllerObject instanceof BaseController) {
             // this method is the one that is part of the interface.
-            $controllerObject->initialize($event->getRequest(), $this->security_context);
+            $controllerObject->initialize($event->getRequest(), $this->securityContext);
         }
     }
 }
