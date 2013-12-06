@@ -8,41 +8,50 @@
  */
 
 namespace UVd\PaymentBundle\Provider;
-require_once(dirname(__FILE__) . "/../../../../vendor/stripe/stripe-php/lib/Stripe.php");
 
 use UVd\PaymentBundle\Entity\Payment;
-use Stripe;
-use Stripe_Charge;
-use Stripe_CardError;
+use UVd\PaymentBundle\Proxy\StripeProxy;
+
 
 class StripeProvider
 {
 
+    protected $stripeProxy;
+
     /**
-     * @param string $apiKey
+     * @param StripeProxy $stripeProxy
+     * @param $apiKey
      */
-    public function __construct($apiKey)
+    public function __construct(StripeProxy $stripeProxy, $apiKey)
     {
-        Stripe::setApiKey($apiKey);
+        $this->stripeProxy = $stripeProxy;
+        $this->stripeProxy->setApiKey($apiKey);
     }
 
     /**
      * Create payment
      *
      * @param Payment $payment
-     * @return array
+     * @return \Stripe_Charge
      * @throws \Exception
      * @throws \Stripe_CardError
      */
     public function create(Payment $payment)
     {
+        if(!$payment->getToken()) {
+            throw new \ErrorException('Token on payment is not set');
+        }
+
         try {
-            $charge = Stripe_Charge::create([
-                    "amount" => 1000, // amount in cents, again
+            $charge = $this
+                ->stripeProxy
+                ->createCharge([
+                    "amount" => 1000,
                     "currency" => "usd",
                     "card" => $payment->getToken(),
                     "description" => "payinguser@example.com"
-            ]);
+                ])
+            ;
         }
         catch (Stripe_CardError $e) {
             throw $e;

@@ -12,6 +12,8 @@ parameters:
 
     uvd.payment.stripe_provider.class: UVd\PaymentBundle\Provider\StripeProvider
 
+    uvd.payment.proxy.stripe_proxy.class: UVd\PaymentBundle\Proxy\StripeProxy
+
     podcast.listener.before_controller.class: UVd\PaymentBundle\Listener\BeforeControllerListener
 
 services:
@@ -34,7 +36,7 @@ services:
 
     uvd.payment.stripe_provider:
         class: %uvd.payment.stripe_provider.class%
-        arguments: ['%stripe_secret_key%']
+        arguments: [%uvd.payment.proxy.stripe_proxy.class%, '%stripe_secret_key%']
 
     before_controller:
         class: %podcast.listener.before_controller.class%
