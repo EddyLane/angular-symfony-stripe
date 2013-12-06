@@ -9,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * Payment
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="UVd\PaymentBundle\Entity\PaymentRepository")
+ * @ORM\Table("payment")
+ * @ORM\Entity(repositoryClass="UVd\PaymentBundle\Repository\PaymentRepository")
  *
  * @ExclusionPolicy("all")
  */
