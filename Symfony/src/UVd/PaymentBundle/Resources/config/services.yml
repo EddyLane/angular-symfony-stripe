@@ -1,4 +1,7 @@
 parameters:
+
+    uvd.payment.controller.base_controller.class: UVd\PaymentBundle\Controller\BaseController
+
     uvd.payment.base_manager.class: UVd\PaymentBundle\Manager\BaseManager
 
     uvd.payment.entity.payment.class: UVd\PaymentBundle\Entity\Payment

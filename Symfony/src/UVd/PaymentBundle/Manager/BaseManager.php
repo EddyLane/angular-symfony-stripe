@@ -9,7 +9,6 @@
 
 namespace UVd\PaymentBundle\Manager;
 
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class BaseManager implements ManagerInterface
@@ -25,28 +24,39 @@ class BaseManager implements ManagerInterface
     protected $securityContext;
 
     /**
-     * @param Doctrine\ORM\EntityRepository $repository
-     * this allows the manager to use a different repository
-     * to the one specified by the doctrine em
+     * This allows the manager to use a different repository
+     *
+     * @param \Doctrine\ORM\EntityRepository $repository
      */
     protected $repository = null;
 
+    /**
+     * @param $className
+     */
     public function __construct($className)
     {
         $this->setClassName($className);
     }
 
+    /**
+     * @param $className
+     */
     public function setClassName($className)
     {
         $this->className = $className;
     }
 
+    /**
+     * @param SecurityContext $context
+     */
     public function setSecurityContext(SecurityContext $context)
     {
         $this->securityContext = $context;
     }
 
-    // should really be protected...
+    /**
+     * @return null
+     */
     public function getRepository()
     {
         if( $this->repository == null) {
@@ -56,15 +66,23 @@ class BaseManager implements ManagerInterface
         }
     }
 
+    /**
+     * @param null $constructWith
+     * @return mixed
+     */
     public function create($constructWith = null)
     {
-        if( $constructWith !== null){
+        if(!is_null($constructWith)){
             return new $this->className($constructWith);
         }
 
         return new $this->className();
     }
 
+    /**
+     * @param $entity
+     * @param bool $flush
+     */
     public function save($entity, $flush = true)
     {
         $this->isClassValid($entity);
@@ -76,6 +94,10 @@ class BaseManager implements ManagerInterface
         }
     }
 
+    /**
+     * @param $entity
+     * @param bool $flush
+     */
     public function remove($entity, $flush = true)
     {
         $this->isClassValid($entity);
@@ -87,11 +109,17 @@ class BaseManager implements ManagerInterface
         }
     }
 
+    /**
+     *
+     */
     public function clear()
     {
         $this->getEntityManager()->clear();
     }
 
+    /**
+     * @param $entity
+     */
     public function merge($entity)
     {
         $this->isClassValid($entity);
@@ -99,6 +127,11 @@ class BaseManager implements ManagerInterface
         $this->getEntityManager()->merge($entity);
     }
 
+    /**
+     * @param $entity
+     * @return bool
+     * @throws \Exception
+     */
     protected function isClassValid($entity)
     {
         if ($entity instanceof $this->className || is_subclass_of($entity, $this->className)) {
@@ -108,61 +141,42 @@ class BaseManager implements ManagerInterface
         throw new \Exception('Factory does not manage that class');
     }
 
+    /**
+     * @return mixed
+     */
     public function getEntityManager()
     {
         return $this->doctrine->getManager();
     }
 
+    /**
+     * @param $doctrine
+     */
     public function setDoctrine($doctrine)
     {
         $this->doctrine = $doctrine;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCacheDriver()
     {
         return $this->getEntityManager()->getConfiguration()->getResultCacheImpl();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         return $this->getRepository()->find($id);
     }
 
-
-
     /**
-     * findOnyBy finds and caches an entity based on one of its fields
-     *
-     * @param string $field
-     * @param string $value
-     *
-     * @todo this should be abstract class which the implementations
-     *       each validating the field passed in and the caching policy
+     * @param $repository
      */
-    public function findOneBy($field = 'id', $value = null)
-    {
-
-        //query for many countries by name
-        $query = $this
-            ->getRepository()
-            ->findAllBy($field, $value)
-        ;
-
-        //allways cache for now - until we have a requirement not too?!
-        $query->useResultCache(true);
-        $query->setResultCacheLifetime(3600);
-
-        //this particular method wants a single result
-        try {
-            $entity = $query->getOneOrNullResult();
-        }
-        catch(NonUniqueResultException $e) {
-            return null;
-        }
-
-        return $entity;
-    }
-
     public function setRepository($repository)
     {
         $this->repository = $repository;

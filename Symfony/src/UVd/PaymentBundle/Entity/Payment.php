@@ -75,9 +75,14 @@ class Payment
      *
      * @param string $token
      * @return Payment
+     * @throws \Exception
      */
     public function setToken($token)
     {
+        if(!is_string($token)) {
+            throw new \InvalidArgumentException(sprintf('Token must be a string. %s given', $token));
+        }
+
         $this->token = $token;
     
         return $this;
@@ -116,14 +121,20 @@ class Payment
         return $this->user;
     }
 
+
     /**
-     * Set the success of this payment
+     * Sets the success of this payment
      *
      * @param $completed
      * @return $this
+     * @throws \Exception
      */
     public function setCompleted($completed)
     {
+        if(!is_bool($completed)) {
+            throw new \InvalidArgumentException(sprintf('Completed must be a boolean. \'%s\' given', $completed));
+        }
+
         $this->completed = $completed;
 
         return $this;

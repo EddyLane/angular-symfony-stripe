@@ -38,11 +38,6 @@ class BeforeControllerListener
 
         $controllerObject = $controller[0];
 
-        // skip initializing for exceptions
-        if ($controllerObject instanceof ExceptionController) {
-            return;
-        }
-
         if ($controllerObject instanceof BaseController) {
             // this method is the one that is part of the interface.
             $controllerObject->initialize($event->getRequest(), $this->securityContext);

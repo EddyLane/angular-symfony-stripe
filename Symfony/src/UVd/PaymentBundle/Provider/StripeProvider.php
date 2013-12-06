@@ -27,9 +27,12 @@ class StripeProvider
     }
 
     /**
-     * Create a basic payment
+     * Create payment
      *
      * @param Payment $payment
+     * @return array
+     * @throws \Exception
+     * @throws \Stripe_CardError
      */
     public function create(Payment $payment)
     {

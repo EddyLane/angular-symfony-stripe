@@ -17,14 +17,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 abstract class BaseController extends FOSRestController {
 
     /**
-     * Current user.
-     *
-     * @var \UVd\PaymentBundle\Entity\User $user
-     */
-    protected $user;
-
-
-    /**
      * @param Request $request
      * @param SecurityContextInterface $securityContext
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
@@ -34,7 +26,6 @@ abstract class BaseController extends FOSRestController {
         if(!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new HttpException(403, 'User not logged in');
         }
-        $this->user = $this->getUser();
     }
 
 }
