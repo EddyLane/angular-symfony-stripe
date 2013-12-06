@@ -77,3 +77,11 @@ body {
     border-bottom: 0;
   }
 }
+
+input {
+    width: 100%;
+}
+
+.payment-form .payment-card .card-body .card-strip .input-group {
+    margin-left: 18px;
+}

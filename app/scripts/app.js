@@ -7,11 +7,11 @@ angular.module('angularStripeTestApp', [
         'ngRoute'
     ])
 
-    .config(['$httpProvider', function($httpProvider) {
+    .config( function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $httpProvider.defaults.withCredentials = true;
-    }])
+    })
 
 
     .config(function ($routeProvider, $httpProvider) {
@@ -24,4 +24,7 @@ angular.module('angularStripeTestApp', [
             .otherwise({
                 redirectTo: '/'
             });
+
+
+        Stripe.setPublishableKey('pk_test_xf2bcw46zdJHzYC8sgwRfASh');
     });

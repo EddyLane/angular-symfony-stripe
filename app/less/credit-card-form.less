@@ -1,0 +1,149 @@
+
+.payment-form {
+	.payment-card {
+		z-index: 100;
+		max-width: 420px;    
+	    margin: 0 auto 20px;    
+	    border: 1px solid @colorCardGrayBorder;
+	    .rounded(5px);    
+	    .box-shadow(~"inset 0px 1px 0px #fff, 0px 2px 6px rgba(0,0,0,.1)");
+	    .gradient(@colorCardGray, darken(@colorCardGray, 25%), darken(@colorCardGray, 5%));
+
+	    .card-heading {
+	    	padding: 20px 30px 15px;
+			p {				
+				font-size: @baseFontSize + 4;
+				font-weight: bold;
+				text-shadow: 0px 1px 0px #fff;
+				margin-bottom: 0px;
+			}
+	    }
+
+	    .card-body {
+	    	padding: 0px 30px;
+
+			input[type="text"],
+			input[type="password"] {		    
+			    font-size: @baseFontSize;
+			    height: auto;    
+			    padding: 8px 14px;
+			   	.rounded(4px);    
+	    		.box-shadow(~"0px 1px 1px #fff, inset 0 1px 3px rgba(0,0,0,0.15)");		    
+			    background: @lighterBackgroundColor;
+			    border: 1px solid darken(@colorCardGray, 60%);
+			    @bodytransition: border linear .2s, box-shadow linear .2s, background linear .2s;
+			    .transition(@bodytransition);
+
+			    &:hover {
+					border: 1px solid darken(@colorCardGray, 75%);
+					background: lighten(@lighterBackgroundColor, 2%);
+		    	}
+
+		    	&:active,
+		    	&:focus {
+		    		border: 1px solid darken(@colorCardGray, 85%);
+		    		background: lighten(@lighterBackgroundColor, 2%);		    		
+		    	}
+			}
+
+			span.form-label {
+				display: inline-block;
+				text-transform: uppercase;
+				color: darken(@colorCardGray, 60%);				
+				text-shadow: 0px 1px 0px #fff;
+				font-size: @baseFontSize;
+				margin-bottom: 6px;
+			}
+
+	    	.card-strip {
+	    		padding: 10px 30px;
+	    		margin-left: -30px;
+	    		margin-right: -30px;
+	    		background: darken(@colorCardGray, 40%);
+				margin-bottom: 20px;
+				display: block;
+
+				&:before, &:after {
+					display: table;
+					line-height: 0;
+					content: "";
+				}
+
+				&:after {
+					clear: both;
+				}
+
+				input[type="text"],
+				input[type="password"] {
+					margin-bottom: 0px;
+				}
+
+				.input-group {
+					float: left;
+					display: block;
+					margin-left: 20px;
+					width: 170px; 			
+
+					&:first-child {
+						margin-left: 0px;
+					}
+				}
+
+				&.no-background {
+					background: transparent;
+				}
+	    	}
+	    }
+
+	    &.blue {
+	    	border: 1px solid @colorCardBlueBorder;
+	    	.box-shadow(~"inset 0px 1px 0px #fff, 0px 2px 6px rgba(0,0,0,.1)");
+	    	.gradient(@colorCardBlue, darken(@colorCardBlue, 15%), @colorCardBlue);
+
+	    	.card-heading {
+		    	p {				
+					color: #fff;
+					text-shadow: 0px 1px 0px darken(@colorCardBlue, 20%);
+				}
+		    }
+
+		    .card-body {
+		    	input[type="text"],
+		    	input[type="password"] {  		
+		    		.box-shadow(~"0px 1px 1px #fff, inset 0 1px 3px rgba(0,0,0,0.15)");		 
+		    		border: 1px solid @colorCardBlueBorder;		
+
+		    		&:hover {
+						border: 1px solid darken(@colorCardBlueBorder, 15%);					
+					}
+
+					&:active,
+					&:focus {
+						border: 1px solid darken(@colorCardBlueBorder, 25%);						
+					}    		
+		    	}
+
+		    	span.form-label {					
+					color: #eee;
+					.opacity(50);
+					text-shadow: 0px 1px 0px darken(@colorCardBlue, 20%);			
+				}
+		    }
+	    }
+	}
+
+	.form-footer {
+		z-index: 2;
+		max-width: 320px;    
+	    margin: -20px auto 20px;  
+	    .rounded(0px 0px 4px 4px);
+	    background: #fff;
+	    .box-shadow(~"inset 0px 4px 6px rgba(0,0,0,.2), 0px 2px 6px rgba(0,0,0,.1)");
+	    padding: 20px 30px;
+	}
+
+    form {
+    	margin-bottom: 0px;
+    }
+    
+}

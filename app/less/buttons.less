@@ -1,0 +1,127 @@
+.btn {
+  border: none;
+  background: lighten(@colorGray, 5%);
+  background-image: none;
+  color: @textColor;  
+  text-decoration: none;
+  text-shadow: none;
+  .box-shadow(none);  
+  .rounded(3px);
+  padding: 5px 12px 4px;
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight; 
+
+  [class^="icon-"], [class*=" icon-"] {
+    margin-top: 1px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: @colorGray;
+    color: @textColor;  
+  }
+
+  &:active,
+  &.active {
+    background-color: darken(@colorGray, 10%);
+    color: @textColor;
+    .opacity(75);
+  }
+
+  &.btn-large {
+    font-size: @baseFontSize + 2;
+    padding: 9px 16px;
+    .rounded(3px);
+  }
+   
+  &.disabled,
+  &[disabled] {
+    background-color: darken(@colorGray, -5%);
+    color: @textColor;
+  }
+
+  &.btn-blue {
+    color: #ffffff;  
+    border: 1px solid darken(@colorBlue, 25%);
+    text-shadow: 0px -1px 0px darken(@colorBlue, 15%);
+    .box-shadow(~"inset 0 1px 0 #abe6f2, 0px 1px 3px rgba(0,0,0,0.2)");
+    .gradient(@colorBlue, darken(@colorBlue, 15%), @colorBlue);
+    @transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    .transition(@transition);    
+
+    &:hover {
+      .gradient(@colorBlue, darken(@colorBlue, 15%), darken(@colorBlue, 15%));
+    }
+
+    &:active,
+    &.active {
+      text-shadow: 0px -1px 0px darken(@colorBlue, 25%);
+      .box-shadow(~"inset 0 1px 3px rgba(0,0,0,0.4), 0px 1px 3px rgba(0,0,0,0.2)");
+      .gradient(@colorBlue, darken(@colorBlue, 25%), darken(@colorBlue, 25%));
+    }    
+  }
+
+  &.btn-green {
+    color: #ffffff;  
+    border: 1px solid darken(@colorDarkGreen, 5%);
+    text-shadow: 0px -1px 0px lighten(@colorDarkGreen, 10%);
+    .box-shadow(~"inset 0 1px 0 #a2c272, 0px 1px 3px rgba(0,0,0,0.2)");
+    .gradient(@colorDarkGreen, @colorDarkGreen, @colorLightGreen);
+    @transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    .transition(@transition);
+
+    &:hover {
+      .gradient(@colorDarkGreen, darken(@colorDarkGreen, 5%), darken(@colorLightGreen, 5%));
+    }
+
+    &:active,
+    &.active {
+      text-shadow: 0px -1px 0px darken(@colorDarkGreen, 15%);
+      .box-shadow(~"inset 0 1px 3px rgba(0,0,0,0.4), 0px 1px 3px rgba(0,0,0,0.2)");
+      .gradient(@colorDarkGreen, darken(@colorDarkGreen, 15%), darken(@colorLightGreen, 15%));
+    }
+  }
+
+  &.btn-fb {
+    color: #ffffff;  
+    border: 1px solid darken(@colorFbBlueBorder, 5%);
+    text-shadow: 0px -1px 0px lighten(@colorFbBlueBorder, 10%);
+    .box-shadow(~"inset 0 1px 0 #3b5998, 0px 1px 3px rgba(0,0,0,0.2)");
+    .gradient(@colorFbBlueBorder, @colorFbBlueBorder, @colorFbBlue);
+    @transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    .transition(@transition);
+
+    &:hover {
+      .gradient(@colorFbBlueBorder, darken(@colorFbBlueBorder, 5%), darken(@colorFbBlue, 5%));
+    }
+
+    &:active,
+    &.active {
+      text-shadow: 0px -1px 0px darken(@colorFbBlueBorder, 15%);
+      .box-shadow(~"inset 0 1px 3px rgba(0,0,0,0.4), 0px 1px 3px rgba(0,0,0,0.2)");
+      .gradient(@colorFbBlueBorder, darken(@colorFbBlueBorder, 15%), darken(@colorFbBlue, 15%));
+    }
+  }
+
+   &.btn-google {
+    color: #ffffff;  
+    border: 1px solid darken(@colorDarkGoogleBorder, 5%);
+    text-shadow: 0px -1px 0px lighten(@colorDarkGoogleBorder, 10%);
+    .box-shadow(~"inset 0 1px 0 #555555, 0px 1px 3px rgba(0,0,0,0.2)");
+    .gradient(@colorDarkGoogleBorder, @colorDarkGoogleBorder, @colorDarkGoogle);
+    @transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    .transition(@transition);
+
+    &:hover {
+      .gradient(@colorDarkGoogleBorder, darken(@colorDarkGoogleBorder, 5%), darken(@colorDarkGoogle, 5%));
+    }
+
+    &:active,
+    &.active {
+      text-shadow: 0px -1px 0px darken(@colorDarkGoogleBorder, 15%);
+      .box-shadow(~"inset 0 1px 3px rgba(0,0,0,0.4), 0px 1px 3px rgba(0,0,0,0.2)");
+      .gradient(@colorDarkGoogleBorder, darken(@colorDarkGoogleBorder, 15%), darken(@colorDarkGoogle, 15%));
+    }
+  }
+}

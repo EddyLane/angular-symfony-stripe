@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-abstract class BaseController extends FOSRestController {
+class BaseController extends FOSRestController {
 
     /**
      * @param Request $request

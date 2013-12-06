@@ -1,16 +1,8 @@
-<div class="header">
-	<h3 class="text-muted">angular stripe test</h3>
-</div>
-
-<div class="jumbotron">
-	<h1>'Allo, 'Allo!</h1>
-	<p class="lead">Give us your money.</p>
-</div>
-
 <div class="container">
-        <form id="payment-form" name="form" role="form" ng-submit="pay(values)" novalidate="true">
-            <span class="payment-errors"></span>
 
+    <div class="alert alert-success">Payment complete</div>
+
+        <form id="payment-form" name="form" role="form" ng-submit="pay(values)" novalidate="true">
 
             <div class="form-group" ng-class="{ 'has-error' : (form.number.$invalid || values.number.error) && submitted }">
                 <label>Card Number</label>
@@ -35,7 +27,6 @@
                 <input type="text" size="4" class="form-control" name="exp_year" ng-model="values.exp_year.value" ng-pattern="/^\d{4}$/" required/>
                 <span class="help-block" ng-if="values.exp_year.error">{{ values.exp_year.error }}</span>
             </div>
-
 
             <button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Submit Payment</button>
         </form>
