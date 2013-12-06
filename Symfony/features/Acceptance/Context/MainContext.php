@@ -6,6 +6,7 @@ use Behat\Behat\Context\BehatContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\CommonContexts\WebApiContext;
+use Acceptance\Context\Data;
 
 /**
  * Features context.
@@ -21,6 +22,7 @@ class MainContext extends BehatContext implements KernelAwareInterface
     public function __construct(array $parameters)
     {
         $this->useContext('web_api', new WebApiContext($parameters['base_url']));
+        $this->useContext('datacontext', new Data\DataContext($parameters));
     }
 
     /**
