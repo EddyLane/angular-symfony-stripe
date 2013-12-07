@@ -53,8 +53,12 @@ class StripeProvider
                 ])
             ;
         }
-        catch (Stripe_CardError $e) {
+        catch (\Stripe_InvalidRequestError $e) {
             throw $e;
+            throw new \Exception('Invalid request error: ' . $e->getMessage());
+        }
+        catch (Stripe_CardError $e) {
+            throw new \Exception('Card error');
         }
 
         $payment->setCompleted(true);

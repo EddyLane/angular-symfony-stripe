@@ -1,12 +1,7 @@
-u_vd_user:
-    resource: "@UVdUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 pay:
     resource: UVd\PaymentBundle\Controller\PaymentController
     type:     rest
-    prefix:   /
+    prefix:   /payment
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

@@ -35,6 +35,8 @@
         "behat/common-contexts": "dev-master",
         "behat/mink-extension": "*@dev",
         "behat/mink-browserkit-driver": "*@dev",
+        "behat/mink-selenium2-driver": "*",
+        "behat/mink-goutte-driver": "*",
         "kriswallsmith/buzz": "dev-master",
         "phpunit/phpunit": "3.7.*@dev",
         "phpspec/phpspec": "2.0.*@dev"
@@ -68,5 +70,9 @@
         "branch-alias": {
             "dev-master": "2.4-dev"
         }
-    }
+    },
+    "repositories": [
+        {"type": "vcs", "url": "git@github.com:robsquires/MinkSelenium2Driver.git"},
+        {"type": "vcs", "url": "git@github.com:robsquires/BehatRobohydraExtension.git"}
+    ]
 }

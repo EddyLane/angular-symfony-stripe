@@ -11,8 +11,7 @@ parameters:
     uvd.payment.user_manager.class: UVd\PaymentBundle\Manager\UserManager
 
     uvd.payment.stripe_provider.class: UVd\PaymentBundle\Provider\StripeProvider
-
-    uvd.payment.proxy.stripe_proxy.class: UVd\PaymentBundle\Proxy\StripeProxy
+    uvd.payment.stripe_proxy.class: UVd\PaymentBundle\Proxy\StripeProxy
 
     podcast.listener.before_controller.class: UVd\PaymentBundle\Listener\BeforeControllerListener
 
@@ -34,9 +33,14 @@ services:
         parent: uvd.payment.base_manager
         arguments: [%uvd.payment.entity.user.class%]
 
+    uvd.payment.stripe_proxy:
+        class: %uvd.payment.stripe_proxy.class%
+        calls:
+            - [ setApiKey, [ '%stripe_secret_key%' ] ]
+
     uvd.payment.stripe_provider:
         class: %uvd.payment.stripe_provider.class%
-        arguments: [%uvd.payment.proxy.stripe_proxy.class%, '%stripe_secret_key%']
+        arguments: [@uvd.payment.stripe_proxy, '%stripe_secret_key%']
 
     before_controller:
         class: %podcast.listener.before_controller.class%
