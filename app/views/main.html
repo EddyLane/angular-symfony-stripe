@@ -4,7 +4,6 @@
 
         You are not logged in
 
-
         <login-form user="user"></login-form>
 
     </div>
@@ -13,34 +12,8 @@
 
             Logged in as {{ user.username }} ({{ user.email }})
 
-        <form id="payment-form" name="form" role="form" ng-submit="pay(values)" novalidate="true">
+        <payment-form></payment-form>
 
-            <div class="form-group" ng-class="{ 'has-error' : (form.number.$invalid || values.number.error) && submitted }">
-                <label>Card Number</label>
-                <input type="text" size="20" class="form-control" name="number" ng-model="values.number.value" required/>
-                <span class="help-block" ng-if="values.number.error">{{ values.number.error }}</span>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : (form.cvc.$invalid || values.cvc.error) && submitted }">
-                <label>CVC</label>
-                <input type="text" size="4" class="form-control" name="cvc" ng-pattern="/^\d{3}$/" ng-model="values.cvc.value" required/>
-                <span class="help-block" ng-if="values.cvc.error">{{ values.cvc.error }}</span>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : (form.exp_month.$invalid || values.exp_month.error) && submitted }">
-                <label>Expiration MM</label>
-                <input type="text" size="2" class="form-control" name="exp_month" ng ng-model="values.exp_month.value" ng-pattern="/^\d{2}$/" required/>
-                <span class="help-block" ng-if="values.exp_month.error">{{ values.exp_month.error }}</span>
-            </div>
-
-            <div class="form-group" ng-class="{ 'has-error' : (form.exp_year.$invalid || values.exp_year.error) && submitted }">
-                <label>Expiration YYYY</label>
-                <input type="text" size="4" class="form-control" name="exp_year" ng-model="values.exp_year.value" ng-pattern="/^\d{4}$/" required/>
-                <span class="help-block" ng-if="values.exp_year.error">{{ values.exp_year.error }}</span>
-            </div>
-
-            <button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Submit Payment</button>
-        </form>
     </div>
 </div>
 
