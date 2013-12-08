@@ -5,6 +5,7 @@ namespace UVd\PaymentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Gedmo\Mapping\Annotation\Timestampable;
 use UVd\UserBundle\Entity\User;
 
 /**
@@ -39,6 +40,14 @@ class Payment
      * @var type
      */
     protected $user;
+
+    /**
+     * @var datetime $created
+     *
+     * @Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
 
     /**
      * @var boolean

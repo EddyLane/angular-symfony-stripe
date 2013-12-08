@@ -42,10 +42,14 @@ angular.module('angularStripeTestApp')
                     /**
                      * save response to database
                      */
-                        saveToken = function (token) {
+                        saveToken = function (token, cb) {
 
                         stripeFactory.pays({
                             token: token
+                        }, function () {
+                            cb();
+                        }, function () {
+
                         });
 
                     };
@@ -89,12 +93,14 @@ angular.module('angularStripeTestApp')
 
                     }, function (status, response) {
 
-                        $scope.submitting = false;
                         resetErrors();
                         if (status === 402) {
+                            $scope.submitting = false;
                             handleError(response.error);
                         } else {
-                            saveToken(response.id);
+                            saveToken(response.id, function () {
+                                $scope.submitting = false;
+                            });
                         }
 
                     });
