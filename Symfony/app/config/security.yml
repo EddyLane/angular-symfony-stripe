@@ -20,7 +20,8 @@ security:
                 provider: fos_userbundle
                 success_handler: authentication_handler
                 failure_handler: authentication_handler
-            logout:       true
+            logout:
+                path: /security/logout
             anonymous:    true
 
     access_control:
@@ -28,5 +29,5 @@ security:
         - { path: ^/security/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/, role: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/security/logout, role: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/admin/, role: ROLE_ADMIN }

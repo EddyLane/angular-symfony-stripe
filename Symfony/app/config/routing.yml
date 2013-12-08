@@ -14,3 +14,10 @@ fos_user_security_check:
     methods: [POST]
     requirements:
         _format:  json
+
+fos_user_security_logout:
+    path: /security/logout
+    defaults: { _controller: FOSUserBundle:Security:logout, _format: json }
+    methods: [GET, POST]
+    requirements:
+        _format:  json

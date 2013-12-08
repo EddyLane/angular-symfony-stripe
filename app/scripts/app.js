@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('angularStripeTestApp', [
+
         'ngCookies',
         'ngResource',
         'ngSanitize',
-        'ngRoute'
+        'ngRoute',
+
+        'chieffancypants.loadingBar'
     ])
 
     .config( function($httpProvider) {
@@ -32,4 +35,12 @@ angular.module('angularStripeTestApp', [
 
 
         Stripe.setPublishableKey(STRIPE_KEY);
+    })
+
+    .run(function ($rootScope, userService) {
+
+        userService.then(function (user) {
+            $rootScope.user = user;
+        });
+
     });

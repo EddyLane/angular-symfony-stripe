@@ -2,11 +2,29 @@
 
 angular.module('angularStripeTestApp')
 
-    .service('userService', function ($http, $q, USER_ME_URL, LOGIN_URL) {
+    .service('userService', function ($http, $q, USER_ME_URL, LOGIN_URL, LOGOUT_URL) {
 
         var defer = $q.defer(),
 
             fns = {
+
+                logout: function() {
+
+                    var self = this;
+
+                    if (!self.authenticated) {
+                        throw new Error('Not logged in');
+                    }
+
+                    $http.get(LOGOUT_URL)
+                        .success(function () {
+                            self.authenticated = false;
+                            self.username = undefined;
+                            self.email = undefined;
+                        });
+
+                },
+
                 authenticate: function (username, password) {
 
                     var defer = $q.defer(),
