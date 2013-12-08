@@ -46,15 +46,28 @@ class StripeProviderSpec extends ObjectBehavior
         ;
     }
 
+
+    /**
+     * @param \UVd\PaymentBundle\Entity\Payment $payment
+     */
+    function it_should_throw_an_error_exception_if_attempting_to_charge_with_a_payment_without_a_user($payment)
+    {
+
+        $payment->isValid()->willReturn(false);
+
+        $this
+            ->shouldThrow('\ErrorException')
+            ->during('create', array($payment))
+        ;
+    }
+
     /**
      * @param \UVd\PaymentBundle\Entity\Payment $payment
      */
     function it_should_throw_an_error_exception_if_attempting_to_charge_with_a_payment_without_a_token($payment)
     {
-        $payment
-            ->getToken()
-            ->willReturn(null)
-        ;
+        $payment->isValid()->willReturn(false);
+
 
         $this
             ->shouldThrow('\ErrorException')
@@ -70,6 +83,8 @@ class StripeProviderSpec extends ObjectBehavior
     function it_will_attempt_make_a_payment_through_stripe_proxy_if_valid_payment($payment, $stripeProxy, $stripeCharge)
     {
         $token = '123abcdef45';
+
+        $payment->isValid()->willReturn(true);
 
         $payment
             ->getToken()

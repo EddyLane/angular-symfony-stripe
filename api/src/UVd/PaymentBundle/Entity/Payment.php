@@ -84,6 +84,20 @@ class Payment
     }
 
     /**
+     * Is this valid
+     *
+     * @return bool
+     */
+    public function isValid()
+    {
+        $validUser = !is_null($this->getUser());
+
+        $validToken = !is_null($this->getToken());
+
+        return $validUser && $validToken;
+    }
+
+    /**
      * Set token
      *
      * @param string $token

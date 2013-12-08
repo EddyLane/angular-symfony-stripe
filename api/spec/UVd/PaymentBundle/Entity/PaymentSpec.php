@@ -23,6 +23,39 @@ class PaymentSpec extends ObjectBehavior
         $this->shouldThrow('\Exception')->during('setUser', array('User Object'));
     }
 
+    /**
+     * @param \UVd\UserBundle\Entity\User $user
+     */
+    function it_should_be_valid_if_it__has_a_user_and_a_token($user)
+    {
+        $this->setUser($user);
+        $this->setToken('1245');
+
+        $this->isValid()->shouldReturn(true);
+    }
+
+    /**
+     * @param \UVd\UserBundle\Entity\User $user
+     */
+    function it_should_be_invalid_if_no_token($user)
+    {
+        $this->setUser($user);
+
+        $this->isValid()->shouldReturn(false);
+    }
+
+    function it_should_be_invalid_if_no_user()
+    {
+        $this->setToken('123154');
+
+        $this->isValid()->shouldReturn(false);
+    }
+
+    function it_should_be_invalid_if_no_token_or_user()
+    {
+        $this->isValid()->shouldReturn(false);
+    }
+
     function it_should_have_a_stripe_token()
     {
         $this->setToken("123fhg135");

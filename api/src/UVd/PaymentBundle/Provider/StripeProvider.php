@@ -38,8 +38,9 @@ class StripeProvider
      */
     public function create(Payment $payment)
     {
-        if(!$payment->getToken()) {
-            throw new \ErrorException('Token on payment is not set');
+
+        if(!$payment->isValid()) {
+            throw new \ErrorException('Payment is not valid');
         }
 
         try {
