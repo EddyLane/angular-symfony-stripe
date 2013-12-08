@@ -15,7 +15,7 @@ security:
         main:
             pattern: ^/
             form_login:
-                check_path: /login_check
+                check_path: /security/login
                 require_previous_session: false
                 provider: fos_userbundle
                 success_handler: authentication_handler
@@ -25,7 +25,7 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/security/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/, role: IS_AUTHENTICATED_REMEMBERED }

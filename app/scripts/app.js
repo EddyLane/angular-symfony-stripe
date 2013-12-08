@@ -14,7 +14,7 @@ angular.module('angularStripeTestApp', [
     })
 
 
-    .config(function ($routeProvider, $httpProvider) {
+    .config(function ($routeProvider, $httpProvider, STRIPE_KEY) {
 
         $routeProvider
             .when('/', {
@@ -31,5 +31,5 @@ angular.module('angularStripeTestApp', [
             });
 
 
-        Stripe.setPublishableKey('pk_test_xf2bcw46zdJHzYC8sgwRfASh');
+        Stripe.setPublishableKey(STRIPE_KEY);
     });

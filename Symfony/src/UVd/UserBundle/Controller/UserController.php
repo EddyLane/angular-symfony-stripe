@@ -2,7 +2,6 @@
 
 namespace UVd\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use UVd\PaymentBundle\Controller\BaseController;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

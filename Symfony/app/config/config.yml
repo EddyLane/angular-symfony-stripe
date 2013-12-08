@@ -106,6 +106,8 @@ fos_rest:
             rss: false
             xml: false
             json: true
+        templating_formats:
+            html: false
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
         view_response_listener: 'force'

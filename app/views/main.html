@@ -1,8 +1,17 @@
 <div class="container">
 
-    <div>
-        Logged in as {{ user.username }} ({{ user.email }})
+    <div ng-if="!user.authenticated">
+
+        You are not logged in
+
+
+        <login-form user="user"></login-form>
+
     </div>
+
+    <div ng-if="user.authenticated">
+
+            Logged in as {{ user.username }} ({{ user.email }})
 
         <form id="payment-form" name="form" role="form" ng-submit="pay(values)" novalidate="true">
 
@@ -32,6 +41,7 @@
 
             <button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Submit Payment</button>
         </form>
+    </div>
 </div>
 
 

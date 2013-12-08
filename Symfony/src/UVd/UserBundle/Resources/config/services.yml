@@ -4,6 +4,6 @@ parameters:
 services:
     authentication_handler:
         class:  %vendor_security.authentication_handler%
-        arguments:  [@router]
+        arguments:  [@fos_rest.view_handler]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
