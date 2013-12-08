@@ -35,9 +35,10 @@ class Payment
     private $token;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="UVd\UserBundle\Entity\User", inversedBy="payments")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @var type
      */
     protected $user;
 
