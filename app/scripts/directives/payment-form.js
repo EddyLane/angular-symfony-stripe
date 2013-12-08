@@ -47,9 +47,10 @@ angular.module('angularStripeTestApp')
                         stripeFactory.pays({
                             token: token
                         }, function () {
+                            $scope.success = true;
                             cb();
                         }, function () {
-
+                            $scope.error = true;
                         });
 
                     };
@@ -75,8 +76,8 @@ angular.module('angularStripeTestApp')
                 $scope.pay = function (values) {
 
                     $scope.submitted = true;
-
-                    console.log($scope);
+                    $scope.success = false;
+                    $scope.error = false;
 
                     if ($scope.form.$invalid) {
                         return false;
@@ -97,10 +98,12 @@ angular.module('angularStripeTestApp')
                         if (status === 402) {
                             $scope.submitting = false;
                             handleError(response.error);
-                        } else {
+                        } else if (status === 200) {
                             saveToken(response.id, function () {
                                 $scope.submitting = false;
                             });
+                        } else {
+                            $scope.submitting = false;
                         }
 
                     });

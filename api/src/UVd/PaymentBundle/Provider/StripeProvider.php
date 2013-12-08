@@ -10,6 +10,7 @@
 namespace UVd\PaymentBundle\Provider;
 
 use UVd\PaymentBundle\Entity\Payment;
+use UVd\UserBundle\Entity\User;
 use UVd\PaymentBundle\Proxy\StripeProxy;
 
 
@@ -28,6 +29,32 @@ class StripeProvider
         $this->stripeProxy->setApiKey($apiKey);
     }
 
+
+    public function createCustomer(User $user, Payment $payment = null)
+    {
+        if($user->getStripeId()) {
+            throw new \ErrorException('User has a stripe ID already');
+        }
+
+        $parameters = [
+            'description' => (String) $user
+        ];
+
+        if(!is_null($payment)) {
+            $parameters['card'] = $payment->getToken();
+        }
+
+        $customer = $this->stripeProxy
+            ->createCustomer($parameters)
+        ;
+
+        $user
+            ->setStripeId($customer->__get('id'))
+        ;
+
+        return $user;
+    }
+
     /**
      * Create payment
      *
@@ -43,28 +70,23 @@ class StripeProvider
             throw new \ErrorException('Payment is not valid');
         }
 
-        try {
-            $charge = $this
-                ->stripeProxy
-                ->createCharge([
-                    "amount" => 1000,
-                    "currency" => "usd",
-                    "card" => $payment->getToken(),
-                    "description" => "payinguser@example.com"
-                ])
-            ;
+        if(!$payment->getUser()->getStripeId()) {
+            return $this->createCustomer($payment->getUser(), $payment);
         }
-        catch (\Stripe_InvalidRequestError $e) {
-            throw $e;
-            throw new \Exception('Invalid request error: ' . $e->getMessage());
-        }
-        catch (Stripe_CardError $e) {
-            throw new \Exception('Card error');
-        }
+
+        $this
+            ->stripeProxy
+            ->createCharge([
+                "amount" => 1000,
+                "currency" => "usd",
+                "card" => $payment->getToken(),
+                "description" => "payinguser@example.com"
+            ])
+        ;
 
         $payment->setCompleted(true);
 
-        return $charge;
+        return $payment;
     }
 
 }

@@ -43,6 +43,14 @@ class Payment
     protected $user;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="UVd\PaymentBundle\Entity\Card", inversedBy="payments", cascade={"all"})
+     * @ORM\JoinColumn(name="card_id", referencedColumnName="id")
+     */
+    protected $card;
+
+    /**
      * @var datetime $created
      *
      * @Timestampable(on="create")
@@ -141,7 +149,7 @@ class Payment
     /**
      * Get user
      *
-     * @return type
+     * @return \UVd\UserBundle\Entity\User
      */
     public function getUser()
     {

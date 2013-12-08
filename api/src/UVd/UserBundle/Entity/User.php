@@ -24,11 +24,25 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(name="stripe_id", type="string", nullable=true, options={"default":null})
+     *
+     */
+    protected $stripeId;
+
+    /**
      * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Payment", mappedBy="user", cascade={"all"})
      *
      * @var ArrayCollection $paments
      */
     protected $payments;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Card", mappedBy="user", cascade={"all"})
+     *
+     * @var ArrayCollection $cards
+     */
+    protected $cards;
 
     /**
      * @param Payment $payment
@@ -42,11 +56,38 @@ class User extends BaseUser
     }
 
     /**
+     * @return String
+     */
+    public function getStripeId()
+    {
+        return $this->stripeId;
+    }
+
+    /**
+     * @param $stripeId
+     * @return $this
+     */
+    public function setStripeId($stripeId)
+    {
+        $this->stripeId = $stripeId;
+
+        return $this;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getPayments()
     {
         return $this->payments;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUsername() . '(' . $this->getEmail() . ')';
     }
 
 }

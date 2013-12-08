@@ -10,6 +10,7 @@ namespace UVd\PaymentBundle\Proxy;
 
 use Stripe;
 use Stripe_Charge;
+use Stripe_Customer;
 
 class StripeProxy implements StripeProxyInterface
 {
@@ -29,13 +30,14 @@ class StripeProxy implements StripeProxyInterface
         return Stripe::getApiKey();
     }
 
-    /**
-     * @param array $chargeData
-     * @return array
-     */
-    public function createCharge(array $chargeData)
+    public function createCharge(array $data)
     {
-        return Stripe_Charge::create($chargeData);
+        return Stripe_Charge::create($data);
+    }
+
+    public function createCustomer(array $data)
+    {
+        return Stripe_Customer::create($data);
     }
 
 } 
