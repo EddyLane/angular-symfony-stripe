@@ -1,6 +1,8 @@
 <div class="container">
 
-    <div class="alert alert-success">Payment complete</div>
+    <div>
+        Logged in as {{ user.username }} ({{ user.email }})
+    </div>
 
         <form id="payment-form" name="form" role="form" ng-submit="pay(values)" novalidate="true">
 

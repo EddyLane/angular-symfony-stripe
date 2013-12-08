@@ -19,7 +19,12 @@ angular.module('angularStripeTestApp', [
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                resolve: {
+                    user: ['userService', function (userService) {
+                        return userService;
+                    }]
+                }
             })
             .otherwise({
                 redirectTo: '/'

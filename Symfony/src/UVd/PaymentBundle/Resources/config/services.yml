@@ -7,8 +7,8 @@ parameters:
     uvd.payment.entity.payment.class: UVd\PaymentBundle\Entity\Payment
     uvd.payment.payment_manager.class: UVd\PaymentBundle\Manager\PaymentManager
 
-    uvd.payment.entity.user.class: UVd\PaymentBundle\Entity\User
-    uvd.payment.user_manager.class: UVd\PaymentBundle\Manager\UserManager
+    uvd.payment.entity.user.class: UVd\UserBundle\Entity\User
+    uvd.payment.user_manager.class: UVd\UserBundle\Manager\UserManager
 
     uvd.payment.stripe_provider.class: UVd\PaymentBundle\Provider\StripeProvider
     uvd.payment.stripe_proxy.class: UVd\PaymentBundle\Proxy\StripeProxy

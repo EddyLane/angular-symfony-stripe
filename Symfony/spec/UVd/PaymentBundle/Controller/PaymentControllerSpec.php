@@ -16,7 +16,7 @@ class PaymentControllerSpec extends ObjectBehavior
      * @param \UVd\PaymentBundle\Provider\StripeProvider $stripeProvider
      * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
      * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $tokenInterface
-     * @param \UVd\PaymentBundle\Entity\User $user
+     * @param \UVd\UserBundle\Entity\User $user
      */
     function let($container, $paymentManager, $stripeProvider, $securityContext, $tokenInterface, $user)
     {
@@ -43,6 +43,7 @@ class PaymentControllerSpec extends ObjectBehavior
 
         $this->setContainer($container);
 
+
         //Set up security
         $securityContext
             ->getToken()
@@ -65,7 +66,7 @@ class PaymentControllerSpec extends ObjectBehavior
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher
      * @param \UVd\PaymentBundle\Manager\PaymentManager $paymentManager
      * @param \UVd\PaymentBundle\Provider\StripeProvider $stripeProvider
-     * @param \UVd\PaymentBundle\Entity\User $user
+     * @param \UVd\UserBundle\Entity\User $user
      * @param \UVd\PaymentBundle\Entity\Payment $payment
      */
     function it_should_create_and_persist_a_payment_object_with_the_authenticated_user(
@@ -86,10 +87,10 @@ class PaymentControllerSpec extends ObjectBehavior
             ->willReturn($requestParameters)
         ;
 
-        $paymentParameters = array_merge($requestParameters, [
-                'user' => $user
-            ]
-        );
+        $paymentParameters =  [
+            'token' => 123456789,
+            'user' => $user
+        ];
 
         $paymentManager
             ->create($paymentParameters)

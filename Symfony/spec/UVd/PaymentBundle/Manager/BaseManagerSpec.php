@@ -39,7 +39,7 @@ class BaseManagerSpec extends ObjectBehavior
     }
 
     /**
-     * @param \UVd\PaymentBundle\Entity\User $user
+     * @param \UVd\UserBundle\Entity\User $user
      */
     function it_should_create_a_payment_entity_and_pass_args_to_its_constructor($user)
     {

@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('angularStripeTestApp')
-    .controller('MainCtrl', function ($scope, $http, stripeFactory) {
+    .controller('MainCtrl', function ($scope, $http, stripeFactory, user) {
+
+        $scope.user = user;
+        console.log('user', user);
 
         /**
          * handle response errors
@@ -18,7 +21,7 @@ angular.module('angularStripeTestApp')
 
                 field = $scope.values[error.param];
 
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     field.error = error.message;
                     field.code = error.code;
                 });

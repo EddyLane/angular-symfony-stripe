@@ -20,9 +20,10 @@ Feature: POST post_pay
    Given I send a GET request to "/logout"
    And the response code should be 200
    And I set header "Content-Type" with value "application/x-www-form-urlencoded"
+   And I set header "Cookie" with value "PHPSESSID=l2qlhl88r64hj7soi1o3r3tkj4"
    When I send a POST request to "/login_check" with form data:
    """
-    _username=bob&_password=bob
+    _username=bob&_password=bob&_remember_me=1
     """
    And the response code should be 200
    And the response should contain json:
@@ -31,7 +32,9 @@ Feature: POST post_pay
     """
    Given no payments exist in the system
    And I set header "Content-Type" with value "application/json"
-   When I send a POST request to "/payment/pays.json" with body:
+   And I set header "Cookie" with value "PHPSESSID=l2qlhl88r64hj7soi1o3r3tkj4"
+   And I set header "Host" with value "app.angular-symfony-stripe.local"
+   When I send a POST request to "/payment/pays" with body:
    """
         {
             "token" : 12459

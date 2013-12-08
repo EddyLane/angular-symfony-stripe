@@ -5,6 +5,7 @@ namespace UVd\PaymentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use UVd\UserBundle\Entity\User;
 
 /**
  * Payment
@@ -33,7 +34,7 @@ class Payment
     private $token;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="UVd\UserBundle\Entity\User", inversedBy="payments")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var type
      */
@@ -64,10 +65,12 @@ class Payment
      */
     public function __construct(array $data = null)
     {
-        if($data !== null) {
-            $this->setToken($data['token']);
-            $this->setUser($data['user']);
+        if(is_null($data)) {
+            return;
         }
+
+        $this->setToken($data['token']);
+        $this->setUser($data['user']);
     }
 
     /**

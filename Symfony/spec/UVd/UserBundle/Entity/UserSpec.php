@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\UVd\PaymentBundle\Entity;
+namespace spec\UVd\UserBundle\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class UserSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('UVd\PaymentBundle\Entity\User');
+        $this->shouldHaveType('UVd\UserBundle\Entity\User');
     }
 
     /**

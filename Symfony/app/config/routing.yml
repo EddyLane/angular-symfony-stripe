@@ -3,6 +3,11 @@ pay:
     type:     rest
     prefix:   /payment
 
+user:
+    resource: UVd\UserBundle\Controller\UserController
+    type:     rest
+    prefix:   /user
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace UVd\PaymentBundle\Repository;
+namespace UVd\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

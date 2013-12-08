@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\UVd\PaymentBundle\Repository;
+namespace spec\UVd\UserBundle\Repository;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -18,6 +18,6 @@ class UserRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('UVd\PaymentBundle\Repository\UserRepository');
+        $this->shouldHaveType('UVd\UserBundle\Repository\UserRepository');
     }
 }

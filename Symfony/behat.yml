@@ -15,8 +15,8 @@ default:
             selenium2:
                 wd_host: http://127.0.0.1:4444/wd/hub
                 capabilities: { "browserName": "phantomjs", "version": "24", "deviceType": "desktop"}
-            default_session: symfony2
-            base_url: 'http://app.angular-symfony-stripe.local/app_dev.php/'
+            default_session: selenium2
+            base_url: 'http://app.angular-symfony-stripe.local/app_dev.php'
 ci:
     formatter:
         name:       progress

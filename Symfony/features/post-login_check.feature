@@ -5,7 +5,7 @@ Feature: POST login_check
     And I set header "Content-Type" with value "application/x-www-form-urlencoded"
     When I send a POST request to "/login_check" with form data:
     """
-    _username=bob&_password=bob
+    _username=bob&_password=bob&_remember_me=1
     """
     And the response code should be 200
     And the response should contain json:

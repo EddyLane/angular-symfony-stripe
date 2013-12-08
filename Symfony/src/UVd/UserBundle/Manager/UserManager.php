@@ -7,8 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace UVd\PaymentBundle\Manager;
+namespace UVd\UserBundle\Manager;
 
+use UVd\PaymentBundle\Manager\BaseManager;
 
 class UserManager extends BaseManager {
 

@@ -1,16 +1,18 @@
 <?php
-// src/Acme/UserBundle/Entity/User.php
 
-namespace UVd\PaymentBundle\Entity;
+namespace UVd\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use UVd\PaymentBundle\Entity\Payment;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ *
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -22,7 +24,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Payment", mappedBy="user", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Payment", mappedBy="user", cascade={"all"})
      *
      * @var ArrayCollection $paments
      */

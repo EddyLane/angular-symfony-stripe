@@ -13,7 +13,7 @@ class PaymentSpec extends ObjectBehavior
     }
 
     /**
-     * @param \UVd\PaymentBundle\Entity\User $user
+     * @param \UVd\UserBundle\Entity\User $user
      */
     function it_should_be_associated_to_one_user($user)
     {
