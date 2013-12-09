@@ -7,7 +7,8 @@ angular.module('angularStripeTestApp', [
         'ngSanitize',
         'ngRoute',
 
-        'chieffancypants.loadingBar'
+        'chieffancypants.loadingBar',
+        'angularPayments'
     ])
 
     .config( function($httpProvider) {

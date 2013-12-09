@@ -64,7 +64,8 @@ angular.module('angularStripeTestApp')
                     'number': {},
                     'cvc': {},
                     'exp_month': {},
-                    'exp_year': {}
+                    'exp_year': {},
+                    'expiry': {}
                 };
 
                 /**
@@ -75,6 +76,11 @@ angular.module('angularStripeTestApp')
                  */
                 $scope.pay = function (values) {
 
+                    var dateValues,
+                        month,
+                        year;
+
+
                     $scope.submitted = true;
                     $scope.success = false;
                     $scope.error = false;
@@ -83,14 +89,18 @@ angular.module('angularStripeTestApp')
                         return false;
                     }
 
+                    dateValues = values.expiry.value.split('/');
+                    month = parseInt(dateValues[0], 10);
+                    year = parseInt(dateValues[1], 10);
+
                     $scope.submitting = true;
 
                     Stripe.card.createToken({
 
                         number: values.number.value,
                         cvc: values.cvc.value,
-                        exp_month: values.exp_month.value,
-                        exp_year: values.exp_year.value
+                        exp_month: month,
+                        exp_year: year
 
                     }, function (status, response) {
 

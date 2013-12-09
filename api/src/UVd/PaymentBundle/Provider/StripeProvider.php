@@ -30,6 +30,12 @@ class StripeProvider
     }
 
 
+    /**
+     * @param User $user
+     * @param Payment $payment
+     * @return User
+     * @throws \ErrorException
+     */
     public function createCustomer(User $user, Payment $payment = null)
     {
         if($user->getStripeId()) {
@@ -48,9 +54,7 @@ class StripeProvider
             ->createCustomer($parameters)
         ;
 
-        $user
-            ->setStripeId($customer->__get('id'))
-        ;
+        $user>setStripeId($customer->__get('id'));
 
         return $user;
     }

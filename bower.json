@@ -12,7 +12,8 @@
     "angular-sanitize": "~1.2.0",
     "angular-route": "~1.2.0",
     "angular-loading-bar": "~0.0.4",
-    "bootstrap": "~3.0.3"
+    "bootstrap": "~3.0.3",
+    "angular-payments": "https://github.com/laurihy/angular-payments.git"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
