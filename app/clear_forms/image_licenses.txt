@@ -1,0 +1,12 @@
+All image items are inside the "img" folder.
+
+> stripe-bg.png
+Author: me
+License: Creative Commons Attribution-NoDerivs 3.0
+
+Phone Template used in
+> blur.jpg
+> blur2.jpg
+Author: Matt Gentile
+Link:	http://dribbble.com/shots/664956-10-Free-Backgrounds
+License: Creative Commons Attribution 3.0

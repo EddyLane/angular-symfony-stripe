@@ -12,11 +12,15 @@ default:
                 env: dev
                 debug: false
         Behat\MinkExtension\Extension:
+            goutte:
+                guzzle_parameters:
+                      ssl.certificate_authority: false
             selenium2:
-                wd_host: http://127.0.0.1:4444/wd/hub
-                capabilities: { "browserName": "phantomjs", "version": "24", "deviceType": "desktop"}
-            default_session: selenium2
-            base_url: 'http://app.angular-symfony-stripe.local/app_dev.php'
+                wd_host: http://127.0.0.1:4444/wd/hub/
+                capabilities: { "browserName": "firefox", "version": "25" }
+            default_session: goutte
+            base_url: http://app.angular-symfony-stripe.local/app_dev.php/
+
 ci:
     formatter:
         name:       progress

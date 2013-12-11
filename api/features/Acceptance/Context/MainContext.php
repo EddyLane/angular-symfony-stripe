@@ -2,6 +2,7 @@
 
 namespace Acceptance\Context;
 
+use Acceptance\Context\Web\WebContext;
 use Behat\Behat\Context\BehatContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -13,6 +14,9 @@ use Acceptance\Context\Data;
  */
 class MainContext extends BehatContext implements KernelAwareInterface
 {
+
+    public $stripeToken;
+
     /**
      * Initializes context.
      * Every scenario gets its own context object.
@@ -22,6 +26,7 @@ class MainContext extends BehatContext implements KernelAwareInterface
     public function __construct(array $parameters)
     {
         $this->useContext('web_api', new WebApiContext($parameters['base_url']));
+        $this->useContext('webcontext', new WebContext($parameters));
         $this->useContext('datacontext', new Data\DataContext($parameters));
     }
 

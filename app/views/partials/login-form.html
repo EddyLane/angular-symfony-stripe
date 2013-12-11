@@ -17,48 +17,82 @@
     <!--<button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Login</button>-->
 
 <!--</form>-->
-
 <div class="container">
-<div class="row">
-    <form id="login-form" name="form" class="form-signin mg-btm" role="form" ng-submit="submit(values)" novalidate="true">
-        <div class="social-box">
-            <div class="row mg-btm">
-                <div class="col-md-12">
-                    <a href="#" class="btn btn-primary btn-block">
-                        <i class="icon-facebook"></i>    Login with Facebook
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="#" class="btn btn-info btn-block" >
-                        <i class="icon-twitter"></i>    Login with Twitter
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="main">
-            <input type="text" class="form-control" name="username" ng-model="username" placeholder="username" required autofocus/>
-            <!--<input type="text" class="form-control" placeholder="Email" autofocus>-->
-            <!--<input type="password" class="form-control" placeholder="Password">-->
-            <input type="password" class="form-control" name="password" ng-model="password" placeholder="password" required/>
-            Are you a business? <a href=""> Get started here</a>
-            <span class="clearfix"></span>
-        </div>
-        <div class="login-footer">
-            <div class="row">
-                <div class="col-xs-6 col-md-6">
-                    <div class="left-section">
-                        <a href="">Forgot your password?</a>
-                        <a href="">Sign up now</a>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-4" style="margin-top: 100px">
+            <div class="account-box">
+
+                <form name="form" role="form" ng-submit="submit(values)" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : form.username.$invalid && submitted }">
+                        <input type="text" placeholder="username" class="form-control" name="username" ng-model="username" required autofocus/>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : form.password.$invalid && submitted }">
+                        <input type="password" placeholder="password" class="form-control" name="password" ng-model="password" required/>
+                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me" />
+                        Keep me signed in
+                    </label>
+                    <button type="submit" class="btn btn-lg btn-block purple-bg" ng-disabled="submitting">Sign in</button>
+                </form>
+                <a class="forgotLnk" href="http://www.jquery2dotnet.com">I can't access my account</a>
+
+                <div class="or-box">
+                    <span class="or">OR</span>
+                    <div class="row">
+                        <div class="col-md-12 row-block">
+                            <a href="http://www.jquery2dotnet.com" class="btn btn-primary btn-block">Create New Account</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-6 pull-right">
-                    <button type="submit" class="btn btn-large btn-danger pull-right" ng-disabled="submitting">Login</button>
-                </div>
             </div>
-
         </div>
-    </form>
+    </div>
 </div>
-</div>
+
+<!--<div class="container">-->
+
+
+<!--<div class="row">-->
+    <!--<form id="login-form" name="form" class="form-signin mg-btm" role="form" ng-submit="submit(values)" novalidate="true">-->
+        <!--<div class="social-box">-->
+            <!--<div class="row mg-btm">-->
+                <!--<div class="col-md-12">-->
+                    <!--<a href="#" class="btn btn-primary btn-block">-->
+                        <!--<i class="icon-facebook"></i>    Login with Facebook-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<a href="#" class="btn btn-info btn-block" >-->
+                        <!--<i class="icon-twitter"></i>    Login with Twitter-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="main">-->
+            <!--<input type="text" class="form-control" name="username" ng-model="username" placeholder="username" required autofocus/>-->
+            <!--&lt;!&ndash;<input type="text" class="form-control" placeholder="Email" autofocus>&ndash;&gt;-->
+            <!--&lt;!&ndash;<input type="password" class="form-control" placeholder="Password">&ndash;&gt;-->
+            <!--<input type="password" class="form-control" name="password" ng-model="password" placeholder="password" required/>-->
+            <!--Are you a business? <a href=""> Get started here</a>-->
+            <!--<span class="clearfix"></span>-->
+        <!--</div>-->
+        <!--<div class="login-footer">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-6 col-md-6">-->
+                    <!--<div class="left-section">-->
+                        <!--<a href="">Forgot your password?</a>-->
+                        <!--<a href="">Sign up now</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-xs-6 col-md-6 pull-right">-->
+                    <!--<button type="submit" class="btn btn-large btn-danger pull-right" ng-disabled="submitting">Login</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+<!--</div>-->

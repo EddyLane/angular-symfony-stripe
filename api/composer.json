@@ -38,6 +38,7 @@
         "behat/mink-browserkit-driver": "*@dev",
         "behat/mink-selenium2-driver": "*",
         "behat/mink-goutte-driver": "*",
+        "behat/mink-sahi-driver": "*",
         "kriswallsmith/buzz": "dev-master",
         "phpunit/phpunit": "3.7.*@dev",
         "phpspec/phpspec": "2.0.*@dev"

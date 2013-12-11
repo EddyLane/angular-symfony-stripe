@@ -1,0 +1,37 @@
+@import url('variables.less');
+
+p, li, a {
+    font-family: @baseFontFamily;    
+    font-size: @baseFontSize;
+    line-height: @baseLineHeight;
+    -webkit-font-smoothing: antialiased;
+}
+
+p.center {
+    text-align: center;
+}
+
+a {
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {  
+    font-weight: normal;  
+    color: @textColor;
+    -webkit-font-smoothing: antialiased;
+    &.center {
+        text-align: center;
+    }
+}
+
+h3 {
+	line-height: 40px;
+}
+
+h4 {
+	line-height: 29px;
+}
+
+strong {
+    color: #222222;
+}
