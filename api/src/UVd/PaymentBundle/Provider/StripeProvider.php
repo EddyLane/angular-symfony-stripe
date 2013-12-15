@@ -89,12 +89,12 @@ class StripeProvider
                     "description" => "payinguser@example.com"
                 ])
             ;
-
-            $payment->setCompleted(true);
         }
         catch(\Stripe_CardError $e) {
             throw new CardDeclinedException($e->getMessage());
         }
+
+        $payment->setCompleted(true);
 
         return $payment;
     }

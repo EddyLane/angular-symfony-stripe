@@ -1,5 +1,10 @@
 Feature: POST login_check
 
+  Background:
+    Given the following users exist in the system:
+    | username | email | password |
+    | bob      | bob   | bob      |
+
   Scenario: Will return a 200 when user successfully logs in
     And I set header "Content-Type" with value "application/x-www-form-urlencoded"
     When I send a POST request to "/security/login" with form data:

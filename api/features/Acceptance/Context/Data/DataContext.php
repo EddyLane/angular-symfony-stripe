@@ -83,6 +83,22 @@ class DataContext extends BehatContext implements KernelAwareInterface
         $em->flush();
     }
 
+    protected function removeAllUsers()
+    {
+        $em = $this->getEntityManager();
+
+        $em
+            ->createQuery('DELETE UVdUserBundle:User')
+            ->execute()
+        ;
+        $em
+            ->getConnection()
+            ->exec("ALTER TABLE fos_user AUTO_INCREMENT = 1; ")
+
+        ;
+        $em->flush();
+    }
+
     /**
      * @return array
      */
@@ -132,5 +148,25 @@ class DataContext extends BehatContext implements KernelAwareInterface
 
         assertEquals($expected, $actual);
     }
+
+    /**
+     * @Given /^the following users exist in the system:$/
+     */
+    public function theFollowingUsersExistInTheSystem(TableNode $userTable)
+    {
+        $this->removeAllUsers();
+        $userManager = $this->getKernel()->getContainer()->get('fos_user.user_manager');
+        foreach($userTable->getHash() as $userHash) {
+            $user = $userManager->createUser();
+            $user->setPlainPassword($userHash['password']);
+            $user->setUsername($userHash['username']);
+            $user->setEmail($userHash['email']);
+            $user->setStripeId(123456789);
+            $user->setEnabled(true);
+            $userManager->updatePassword($user);
+            $userManager->updateUser($user, true);
+        }
+    }
+
 
 }

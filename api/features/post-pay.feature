@@ -2,16 +2,16 @@ Feature: POST post_pay
 
   Background:
     Given no payments exist in the system
+    And the following users exist in the system:
+      | username | email | password |
+      | bob      | bob   | bob      |
     And I set header "Content-type" with value "application/json"
 
-
   Scenario: Will return a 403 when not logged in
-    When I send a POST request to "/payment/pays.json" with body:
-    """
-        {
-            "token" : 12459
-        }
-    """
+   Given I generate a stripe token from the following card details:
+      | number              | cvc | exp_month | exp_year |
+      | 4242 4242 4242 4242 | 123 | 12        | 2013     |
+    When I send a POST request to "/payment/pays" with the generated token
     Then the response code should be 403
     And the response should contain json:
     """
