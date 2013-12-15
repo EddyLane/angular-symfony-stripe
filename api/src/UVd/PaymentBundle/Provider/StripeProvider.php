@@ -11,31 +11,33 @@ namespace UVd\PaymentBundle\Provider;
 
 use UVd\PaymentBundle\Entity\Payment;
 use UVd\PaymentBundle\Exception\CardDeclinedException;
+use UVd\PaymentBundle\Manager\CardManager;
 use UVd\UserBundle\Entity\User;
 use UVd\PaymentBundle\Proxy\StripeProxy;
-
+use UVd\PaymentBundle\Entity\Card;
 
 class StripeProvider
 {
 
     protected $stripeProxy;
+    protected $cardManager;
 
     /**
      * @param StripeProxy $stripeProxy
-     * @param $apiKey
+     * @param CardManager $cardManager
      */
-    public function __construct(StripeProxy $stripeProxy, $apiKey)
+    public function __construct(StripeProxy $stripeProxy, CardManager $cardManager)
     {
         $this->stripeProxy = $stripeProxy;
-        $this->stripeProxy->setApiKey($apiKey);
+        $this->cardManager = $cardManager;
     }
-
 
     /**
      * @param User $user
      * @param Payment $payment
      * @return User
      * @throws \ErrorException
+     * @throws \UVd\PaymentBundle\Exception\CardDeclinedException
      */
     public function createCustomer(User $user, Payment $payment = null)
     {
@@ -51,13 +53,38 @@ class StripeProvider
             $parameters['card'] = $payment->getToken();
         }
 
-        $customer = $this->stripeProxy
-            ->createCustomer($parameters)
+        try {
+            (array) $customer = $this->stripeProxy
+                ->createCustomer($parameters)
+            ;
+        }
+        catch(\Stripe_CardError $e) {
+            throw new CardDeclinedException($e->getMessage());
+        }
+
+        $user->setStripeId($customer['id']);
+
+        $cardData = $this->getCardFromCustomerData($customer);
+
+        $card = $this->cardManager->create();
+        $card
+            ->setUser($user)
+            ->setCardType(Card::mapCardType($cardData['type']))
+            ->setNumber($cardData['last4'])
+            ->setExpMonth($cardData['exp_month'])
+            ->setExpYear($cardData['exp_year'])
         ;
 
-        $user>setStripeId($customer->__get('id'));
+        $this->cardManager->save($card, true);
 
         return $user;
+    }
+
+    private function getCardFromCustomerData($data)
+    {
+        $cards = $data['cards'];
+        $card = $cards['data'][0];
+        return $card;
     }
 
     /**
@@ -70,7 +97,6 @@ class StripeProvider
      */
     public function create(Payment $payment)
     {
-
         if(!$payment->isValid()) {
             throw new \ErrorException('Payment is not valid');
         }
@@ -85,8 +111,7 @@ class StripeProvider
                 ->createCharge([
                     "amount" => 1000,
                     "currency" => "usd",
-                    "card" => $payment->getToken(),
-                    "description" => "payinguser@example.com"
+                    "customer" => $payment->getUser()->getStripeId(),
                 ])
             ;
         }

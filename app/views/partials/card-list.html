@@ -1,0 +1,14 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Card Number</th><th>Type</th><th>Expires</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="card in cards">
+            <td>{{ card.number }}</td>
+            <td>{{ card.card_type }}</td>
+            <td>{{ card.exp_month }}/{{ card.exp_year }}</td>
+        </tr>
+    </tbody>
+</table>

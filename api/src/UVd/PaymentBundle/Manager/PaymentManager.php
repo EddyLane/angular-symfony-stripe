@@ -9,8 +9,6 @@
 
 namespace UVd\PaymentBundle\Manager;
 
-use UVd\PaymentBundle\Entity\Payment;
-
 class PaymentManager extends BaseManager {
 
 }

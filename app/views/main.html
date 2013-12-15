@@ -1,16 +1,21 @@
-<div class="container">
-
-    <div ng-if="!user.authenticated">
-
-        <login-form user="user"></login-form>
-
-    </div>
-
-    <div ng-if="user.authenticated">
-
-            Logged in as {{ user.username }} ({{ user.email }})
-
-        <payment-form></payment-form>
-
+<div ng-if="!user.authenticated">
+    <login-form user="user"></login-form>
+</div>
+<div ng-if="user.authenticated">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                Logged in as {{ user.username }} <strong>({{ user.email }})</strong>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <card-list cards="user.cards"></card-list>
+            </div>
+            <div class="col-md-4">
+                <payment-form></payment-form>
+            </div>
+        </div>
     </div>
 </div>

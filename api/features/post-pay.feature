@@ -28,6 +28,7 @@ Feature: POST post_pay
       | number              | cvc | exp_month | exp_year |
       | 4242 4242 4242 4242 | 123 | 12        | 2013     |
     When I send a POST request to "/payment/pays" with the generated token
+    Then print response
     Then the response code should be 201
     And the response should contain json:
     """
@@ -38,7 +39,7 @@ Feature: POST post_pay
     And only the following payments should now exist in the system:
       | id | token     | completed |
       | 1  | { token } | true      |
-
+    And a stripe id should be set for the user with username "bob"
 
   Scenario: Will return 400 when no token has been posted
    Given I am authenticating as "bob" with "bob" password

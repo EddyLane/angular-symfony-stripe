@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use UVd\PaymentBundle\Entity\Payment;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
@@ -25,21 +26,19 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(name="stripe_id", type="string", nullable=true, options={"default":null})
-     *
      */
     protected $stripeId;
 
     /**
      * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Payment", mappedBy="user", cascade={"all"})
      *
-     * @var ArrayCollection $paments
+     * @var ArrayCollection $payments
      */
     protected $payments;
 
-
     /**
      * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Card", mappedBy="user", cascade={"all"})
-     *
+     * @Expose
      * @var ArrayCollection $cards
      */
     protected $cards;

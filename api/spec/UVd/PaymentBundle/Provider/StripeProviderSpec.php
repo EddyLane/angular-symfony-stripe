@@ -81,6 +81,50 @@ class StripeProviderSpec extends ObjectBehavior
      * @param \UVd\PaymentBundle\Proxy\StripeProxy $stripeProxy
      * @param \Stripe_Charge $stripeCharge
      */
+    function it_will_attempt_to_create_a_stripe_user_and_save_the_id_to_the_user_if_valid_payment_but_no_stripe_user_id_has_been_created(
+        $payment,
+        $user,
+        $stripeProxy,
+        $stripeCharge
+    ) {
+        $token = '123abcdef45';
+
+        $payment->isValid()->willReturn(true);
+
+        $payment
+            ->getUser()
+            ->shouldBeCalled()
+            ->willReturn($user)
+        ;
+
+        $user
+            ->getStripeId()
+            ->shouldBeCalled()
+            ->willReturn(12345)
+        ;
+
+        $payment
+            ->getToken()
+            ->willReturn(null)
+        ;
+
+        $payment
+            ->setCompleted(true)
+            ->shouldBeCalled()
+        ;
+
+        $this
+            ->create($payment)
+            ->shouldReturn($payment)
+        ;
+    }
+
+    /**
+     * @param \UVd\PaymentBundle\Entity\Payment $payment
+     * @param \UVd\UserBundle\Entity\User $user
+     * @param \UVd\PaymentBundle\Proxy\StripeProxy $stripeProxy
+     * @param \Stripe_Charge $stripeCharge
+     */
     function it_will_attempt_make_a_payment_through_stripe_proxy_if_valid_payment_and_a_stripe_user_id_has_already_been_created(
         $payment,
         $user,

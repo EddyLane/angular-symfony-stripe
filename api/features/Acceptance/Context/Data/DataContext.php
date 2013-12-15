@@ -99,6 +99,11 @@ class DataContext extends BehatContext implements KernelAwareInterface
         $em->flush();
     }
 
+    protected function getUserManager()
+    {
+        return $this->getKernel()->getContainer()->get('fos_user.user_manager');
+    }
+
     /**
      * @return array
      */
@@ -155,18 +160,31 @@ class DataContext extends BehatContext implements KernelAwareInterface
     public function theFollowingUsersExistInTheSystem(TableNode $userTable)
     {
         $this->removeAllUsers();
-        $userManager = $this->getKernel()->getContainer()->get('fos_user.user_manager');
+
+        $userManager = $this->getUserManager();
+
         foreach($userTable->getHash() as $userHash) {
             $user = $userManager->createUser();
             $user->setPlainPassword($userHash['password']);
             $user->setUsername($userHash['username']);
             $user->setEmail($userHash['email']);
-            $user->setStripeId(123456789);
+            if(isset($userHash['stripe_id'])) {
+                $user->setStripeId($userHash['stripe_id']);
+            }
             $user->setEnabled(true);
             $userManager->updatePassword($user);
             $userManager->updateUser($user, true);
         }
     }
 
+    /**
+     * @Given /^a stripe id should be set for the user with username "([^"]*)"$/
+     */
+    public function aStripeIdShouldBeSetForTheUserWithUsername($username)
+    {
+        $userManager = $this->getUserManager();
+        $user = $userManager->findUserBy(['username' => $username]);
+        assertNotNull($user->getStripeId());
+    }
 
 }

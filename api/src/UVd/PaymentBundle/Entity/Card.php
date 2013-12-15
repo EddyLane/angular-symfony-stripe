@@ -3,18 +3,24 @@
 namespace UVd\PaymentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use UVd\UserBundle\Entity\User;
+use JMS\Serializer\Annotation\Accessor;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * Card
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class Card
 {
     const CARD_TYPE_VISA = 1;
     const CARD_TYPE_MASTERCARD = 2;
     const CARD_TYPE_AMERICAN_EXPRESS = 3;
+
+//    const CARD_FORMAT_VISA = '**** **** **** %s';
 
     /**
      * @var integer
@@ -28,6 +34,8 @@ class Card
     /**
      * @var string
      *
+     * @Expose
+     * @Accessor(getter="getNumber")
      * @ORM\Column(name="number", type="string", length=4)
      */
     private $number;
@@ -35,9 +43,26 @@ class Card
     /**
      * @var integer
      *
+     * @Expose
      * @ORM\Column(name="card_type", type="smallint")
      */
     private $cardType;
+
+    /**
+     * @var integer
+     *
+     * @Expose
+     * @ORM\Column(name="exp_month", type="integer")
+     */
+    private $expMonth;
+
+    /**
+     * @var integer
+     *
+     * @Expose
+     * @ORM\Column(name="exp_year", type="integer")
+     */
+    private $expYear;
 
     /**
      * @var User
@@ -70,7 +95,14 @@ class Card
                 return self::CARD_TYPE_MASTERCARD;
         }
     }
-
+//
+//    public static function mapCardFormat($type)
+//    {
+//        switch($type) {
+//            case self::CARD_TYPE_VISA:
+//                return self::CARD_FORMAT_VISA;
+//        }
+//    }
     /**
      * Get id
      *
@@ -101,7 +133,10 @@ class Card
      */
     public function getNumber()
     {
-        return $this->number;
+        return $this->getNumber();
+//        $format = self::mapCardFormat($this->getCardType());
+//        return $format;
+//        return sprintf($format, $this->getNumber());
     }
 
     /**
@@ -125,5 +160,38 @@ class Card
     public function getCardType()
     {
         return $this->cardType;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param $expMonth
+     * @return $this
+     */
+    public function setExpMonth($expMonth)
+    {
+        $this->expMonth = $expMonth;
+
+        return $this;
+    }
+
+    /**
+     * @param $expYear
+     * @return $this
+     */
+    public function setExpYear($expYear)
+    {
+        $this->expYear = $expYear;
+
+        return $this;
     }
 }
