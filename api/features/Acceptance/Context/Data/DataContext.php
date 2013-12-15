@@ -107,6 +107,14 @@ class DataContext extends BehatContext implements KernelAwareInterface
     }
 
     /**
+     * @Given /^no payments should exist in the system$/
+     */
+    public function noPaymentsShouldExistInTheSystem()
+    {
+        assertEmpty($this->getAllPayments());
+    }
+
+    /**
      * @Given /^only the following payments should now exist in the system:$/
      */
     public function onlyTheFollowingPaymentsShouldNowExistInTheSystem(TableNode $expectedTable)

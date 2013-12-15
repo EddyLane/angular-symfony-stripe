@@ -13,10 +13,14 @@ Feature: POST post_pay
         }
     """
     Then the response code should be 403
-    And the response should contain "User not logged in"
-    And only the following payments should now exist in the system:
-      | id |
-
+    And the response should contain json:
+    """
+        {
+          "code": 403,
+          "message": "User not logged in"
+        }
+    """
+    And no payments should exist in the system
 
   Scenario: Will return 201 when payment successful
   Given I am authenticating as "bob" with "bob" password
@@ -44,8 +48,14 @@ Feature: POST post_pay
         }
     """
     Then the response code should be 400
-    And only the following payments should now exist in the system:
-      | id |
+    And the response should contain json:
+    """
+        {
+          "code": 400,
+          "message": "Request parameter \"token\" is empty"
+        }
+    """
+    And no payments should exist in the system
 
   Scenario: Will return 402 when a card is declined
     Given I am authenticating as "bob" with "bob" password
@@ -61,5 +71,4 @@ Feature: POST post_pay
           "message": "Your card was declined."
         }
     """
-    And only the following payments should now exist in the system:
-      | id |
+    And no payments should exist in the system

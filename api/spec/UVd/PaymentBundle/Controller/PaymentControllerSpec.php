@@ -87,7 +87,7 @@ class PaymentControllerSpec extends ObjectBehavior
             ->willReturn($requestParameters)
         ;
 
-        $paymentParameters =  [
+        $paymentParameters = [
             'token' => 123456789,
             'user' => $user
         ];

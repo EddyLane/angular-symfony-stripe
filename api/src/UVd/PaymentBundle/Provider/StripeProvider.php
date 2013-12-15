@@ -96,7 +96,6 @@ class StripeProvider
             throw new CardDeclinedException($e->getMessage());
         }
 
-
         return $payment;
     }
 
