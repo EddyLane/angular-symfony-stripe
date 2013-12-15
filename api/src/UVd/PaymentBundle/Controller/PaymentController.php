@@ -4,11 +4,13 @@ namespace UVd\PaymentBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\RequestParam;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class PaymentController extends BaseController
 {
     /**
      * @RequestParam(name="token", description="Stripe token.")
+     * @View(statusCode=201)
      */
     public function postPayAction(ParamFetcher $paramFetcher)
     {

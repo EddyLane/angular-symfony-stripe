@@ -10,6 +10,7 @@
 namespace UVd\PaymentBundle\Provider;
 
 use UVd\PaymentBundle\Entity\Payment;
+use UVd\PaymentBundle\Exception\CardDeclinedException;
 use UVd\UserBundle\Entity\User;
 use UVd\PaymentBundle\Proxy\StripeProxy;
 
@@ -78,17 +79,23 @@ class StripeProvider
             return $this->createCustomer($payment->getUser(), $payment);
         }
 
-        $this
-            ->stripeProxy
-            ->createCharge([
-                "amount" => 1000,
-                "currency" => "usd",
-                "card" => $payment->getToken(),
-                "description" => "payinguser@example.com"
-            ])
-        ;
+        try {
+            $this
+                ->stripeProxy
+                ->createCharge([
+                    "amount" => 1000,
+                    "currency" => "usd",
+                    "card" => $payment->getToken(),
+                    "description" => "payinguser@example.com"
+                ])
+            ;
 
-        $payment->setCompleted(true);
+            $payment->setCompleted(true);
+        }
+        catch(\Stripe_CardError $e) {
+            throw new CardDeclinedException($e->getMessage());
+        }
+
 
         return $payment;
     }

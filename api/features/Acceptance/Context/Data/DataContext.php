@@ -91,7 +91,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
         return $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('p')
+            ->select('p.id, p.token, p.completed')
             ->from('UVdPaymentBundle:Payment', 'p')
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY)
@@ -109,10 +109,19 @@ class DataContext extends BehatContext implements KernelAwareInterface
     /**
      * @Given /^only the following payments should now exist in the system:$/
      */
-    public function onlyTheFollowingPaymentsShouldNowExistInTheSystem(TableNode $expected)
+    public function onlyTheFollowingPaymentsShouldNowExistInTheSystem(TableNode $expectedTable)
     {
         $actual = $this->getAllPayments();
-        $expected = $expected->getHash();
+
+        $expected = [];
+        foreach($expectedTable->getHash() as $paymentHash) {
+            $expected[] = [
+                'id' => (int) $paymentHash['id'],
+                'token' => $this->getMainContext()->getSubcontext('webcontext')->stripeToken,
+                'completed' => $paymentHash['completed'] === 'true' ? true : false
+            ];
+        }
+
         assertEquals($expected, $actual);
     }
 

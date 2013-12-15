@@ -8,34 +8,64 @@
 
 namespace Acceptance\Context\Web;
 
-use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\CommonContexts\WebApiContext;
+use Behat\Gherkin\Node\TableNode;
+use Buzz\Browser;
 
-class WebContext extends RawMinkContext
+class WebContext extends WebApiContext
 {
-    /**
-     * @Given /^I generate a stripe token$/
-     */
-    public function iGenerateAStripeToken()
-    {
+    private $parameters;
+    public $stripeToken;
+    protected $stripePk;
 
-        // Get cURL resource
+
+    public function __construct($parameters)
+    {
+        $this->stripePk = $parameters['stripe_pk'];
+        $this->parameters = $parameters;
+        parent::__construct($parameters['base_url']);
+    }
+
+    /**
+     * @Given /^I generate a stripe token from the following card details:$/
+     */
+    public function iGenerateAStripeTokenFromTheFollowingCardDetails(TableNode $paymentDetailsTable)
+    {
+        $paymentDetailsHash = $paymentDetailsTable->getHash()[0];
+
+        $stripeCurlParams = [
+            'card[number]' => $paymentDetailsHash['number'],
+            'card[exp_month]' => $paymentDetailsHash['exp_month'],
+            'card[exp_year]' => $paymentDetailsHash['exp_year'],
+            'card[cvc]' => $paymentDetailsHash['cvc'],
+            'key' => $this->stripePk,
+            '_method' => 'POST'
+        ];
+
         $curl = curl_init();
-// Set some options - we are passing in a useragent too here
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://api.stripe.com/v1/tokens?card[number]=4242424242424242&card[cvc]=123&card[exp_month]=12&card[exp_year]=2013&key=pk_test_xf2bcw46zdJHzYC8sgwRfASh&_method=POST',
+            CURLOPT_URL => 'https://api.stripe.com/v1/tokens?' . http_build_query($stripeCurlParams),
             CURLOPT_USERAGENT => 'Stripe CURL'
         ));
-// Send the request & save response to $resp
         $resp = curl_exec($curl);
-// Close request to clear up some resources
         curl_close($curl);
 
+        $stripeResponse = json_decode($resp, true);
 
-        $stripeResponse = json_decode($resp);
+        $this->stripeToken = $stripeResponse['id'];
+    }
 
-        $this->getMainContext()->stripeToken = $stripeResponse['id'];
+    /**
+     * @When /^I send a POST request to "([^"]*)" with the generated token$/
+     */
+    public function iSendAPostRequestToWithTheGeneratedToken($url)
+    {
+        $url  = $this->parameters['base_url'].'/'.ltrim($this->replacePlaceHolder($url), '/');
 
+        $this->getBrowser()->call($url, 'POST', $this->getHeaders(), json_encode([
+            'token' => $this->stripeToken
+        ]));
     }
 
 
