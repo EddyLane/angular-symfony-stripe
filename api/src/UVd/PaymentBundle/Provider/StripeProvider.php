@@ -32,6 +32,44 @@ class StripeProvider
         $this->cardManager = $cardManager;
     }
 
+    public function createCard(User $user, array $parameters)
+    {
+        if(!$user->getStripeId()) {
+            throw new \ErrorException('User must have a stripe ID already');
+        }
+
+        try {
+            $customer = $this
+                ->stripeProxy
+                ->retrieveCustomer($user->getStripeId())
+            ;
+
+            $cardData = $customer
+                ->cards
+                ->create([ "card" => $parameters['token'] ])
+            ;
+
+        }
+        catch(\Stripe_CardError $e) {
+            throw new CardDeclinedException($e->getMessage());
+        }
+
+        $card = $this->cardManager->create();
+
+        $card
+            ->setUser($user)
+            ->setToken($cardData['token'])
+            ->setCardType(Card::mapCardType($cardData['type']))
+            ->setNumber($cardData['last4'])
+            ->setExpMonth($cardData['exp_month'])
+            ->setExpYear($cardData['exp_year'])
+        ;
+
+        $this->cardManager->save($card, true);
+
+        return $card;
+    }
+
     /**
      * @param User $user
      * @param Payment $payment

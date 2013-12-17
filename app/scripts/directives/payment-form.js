@@ -6,7 +6,7 @@ angular.module('angularStripeTestApp')
             restrict: 'E',
             scope: {},
             templateUrl: 'views/partials/payment-form.html',
-            controller: function ($scope, stripeFactory) {
+            controller: function ($scope, stripeFactory, Card) {
 
                 /**
                  * handle response errors
@@ -44,14 +44,8 @@ angular.module('angularStripeTestApp')
                      */
                         saveToken = function (token, cb) {
 
-                        stripeFactory.pays({
-                            token: token
-                        }, function () {
-                            $scope.success = true;
-                            cb();
-                        }, function () {
-                            $scope.error = true;
-                        });
+                        var card = new Card({ token: token });
+                        card.$save();
 
                     };
 

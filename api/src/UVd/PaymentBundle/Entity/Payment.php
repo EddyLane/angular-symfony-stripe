@@ -38,7 +38,7 @@ class Payment
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UVd\UserBundle\Entity\User", inversedBy="payments")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
@@ -46,7 +46,7 @@ class Payment
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UVd\PaymentBundle\Entity\Card", inversedBy="payments", cascade={"all"})
-     * @ORM\JoinColumn(name="card_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="card_id", referencedColumnName="id", nullable=true)
      */
     protected $card;
 

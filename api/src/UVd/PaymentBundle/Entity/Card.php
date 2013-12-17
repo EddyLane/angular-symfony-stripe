@@ -5,6 +5,7 @@ namespace UVd\PaymentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use UVd\UserBundle\Entity\User;
 use JMS\Serializer\Annotation\Accessor;
+use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 /**
@@ -19,12 +20,22 @@ class Card
     const CARD_TYPE_VISA = 1;
     const CARD_TYPE_MASTERCARD = 2;
     const CARD_TYPE_AMERICAN_EXPRESS = 3;
+    const CARD_TYPE_DISCOVER = 4;
+    const CARD_TYPE_DINERS_CLUB = 5;
+    const CARD_TYPE_JCB = 6;
 
-//    const CARD_FORMAT_VISA = '**** **** **** %s';
+    const CARD_NAME_VISA = 'Visa';
+
+    const CARD_FORMAT_VISA = '****************';
+    const CARD_FORMAT_MASTERCARD = '**** **** **** ****';
+    const CARD_FORMAT_AMERICAN_EXPRESS = '**** ****** *****';
+    const CARD_FORMAT_DISCOVER = '**** **** **** ****';
+    const CARD_FORMAT_DINERS_CLUB = '**** **** **** ****';
+    const CARD_FORMAT_JCB = '**** **** **** ****';
 
     /**
      * @var integer
-     *
+     * @Expose
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -44,6 +55,7 @@ class Card
      * @var integer
      *
      * @Expose
+     * @Accessor(getter="getCardType")
      * @ORM\Column(name="card_type", type="smallint")
      */
     private $cardType;
@@ -65,6 +77,12 @@ class Card
     private $expYear;
 
     /**
+     * @var string
+     * @ORM\Column(name="token", type="string")
+     */
+    private $token;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UVd\UserBundle\Entity\User", inversedBy="cards")
@@ -81,28 +99,39 @@ class Card
 
 
     /**
-     * @param $type
+     * @param $name
      * @return int
      */
-    public static function mapCardType($type)
+    public static function mapCardType($name)
     {
-        switch(strtolower($type)) {
+        switch(strtolower($name)) {
             case 'visa':
                 return self::CARD_TYPE_VISA;
             case 'american express':
                 return self::CARD_TYPE_AMERICAN_EXPRESS;
             case 'mastercard':
                 return self::CARD_TYPE_MASTERCARD;
+            default:
+                return self::CARD_TYPE_VISA;
+
         }
     }
-//
-//    public static function mapCardFormat($type)
-//    {
-//        switch($type) {
-//            case self::CARD_TYPE_VISA:
-//                return self::CARD_FORMAT_VISA;
-//        }
-//    }
+
+    public static function mapCardTypeName($type)
+    {
+        return self::CARD_NAME_VISA;
+
+    }
+
+    public static function mapCardFormat($type)
+    {
+        switch($type) {
+            case 1:
+                return self::CARD_FORMAT_VISA;
+            default:
+                return self::CARD_FORMAT_VISA;
+        }
+    }
     /**
      * Get id
      *
@@ -111,6 +140,18 @@ class Card
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * @param $token
+     * @return $this
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
     }
 
     /**
@@ -133,10 +174,8 @@ class Card
      */
     public function getNumber()
     {
-        return $this->getNumber();
-//        $format = self::mapCardFormat($this->getCardType());
-//        return $format;
-//        return sprintf($format, $this->getNumber());
+        $format = self::mapCardFormat($this->cardType);
+        return substr_replace($format, $this->number, - strlen($this->number));
     }
 
     /**
@@ -160,6 +199,16 @@ class Card
     public function getCardType()
     {
         return $this->cardType;
+    }
+
+
+    /**
+     * @VirtualProperty
+     * @return string
+     */
+    public function getCardTypeName()
+    {
+        return self::mapCardTypeName($this->cardType);
     }
 
     /**
@@ -193,5 +242,23 @@ class Card
         $this->expYear = $expYear;
 
         return $this;
+    }
+
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function belongsTo(User $user)
+    {
+        return $user->getId() === $this->getUser()->getId();
     }
 }

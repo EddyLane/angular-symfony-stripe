@@ -8,6 +8,12 @@ user:
     type:     rest
     prefix:   /user
 
+card:
+    resource: UVd\PaymentBundle\Controller\CardController
+    type:     rest
+    prefix:   /card
+
+
 fos_user_security_check:
     path: /security/login
     defaults: { _controller: FOSUserBundle:Security:check, _format: json }
