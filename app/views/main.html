@@ -1,5 +1,36 @@
 <div ng-if="!user.authenticated">
-    <login-form user="user"></login-form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-4" style="margin-top: 100px">
+
+                <div class="account-box">
+
+                    <login-form user="user" ng-if="!formType"></login-form>
+
+                    <register-form user="user" ng-if="formType"></register-form>
+
+                    <a class="forgotLnk" href="http://www.jquery2dotnet.com">I can't access my account</a>
+
+
+                    <div class="or-box" ng-show="!formType">
+                        <span class="or">OR</span>
+
+                        <div class="row">
+                            <div class="col-md-12 row-block">
+                                <button class="btn btn-primary btn-block" ng-click="formType = !formType">Create New
+                                    Account</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </div>
 <div ng-if="user.authenticated">
     <div class="container">
@@ -11,10 +42,10 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <card-list cards="cards"></card-list>
+                <card-list cards="user.cards"></card-list>
             </div>
             <div class="col-md-4">
-                <payment-form cards="cards"></payment-form>
+                <payment-form cards="user.cards"></payment-form>
             </div>
         </div>
     </div>

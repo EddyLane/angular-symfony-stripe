@@ -25,6 +25,31 @@ angular.module('angularStripeTestApp')
 
                 },
 
+                register: function (username, password) {
+                    var defer = $q.defer(),
+                        self = this;
+
+                    $http({
+                        url: REGISTER_URL,
+                        method: 'POST',
+                        data: $.param({ _username: username, _password: password }),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    })
+                        .success(function (data) {
+
+                            self.authenticated = true;
+
+                            angular.extend(self, data);
+
+                            defer.resolve(true);
+                        })
+                        .error(function () {
+                            defer.resolve();
+                        });
+
+                    return defer.promise;
+                },
+
                 authenticate: function (username, password) {
 
                     var defer = $q.defer(),

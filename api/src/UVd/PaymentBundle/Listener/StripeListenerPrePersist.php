@@ -15,6 +15,10 @@ use UVd\PaymentBundle\Exception\CardDeclinedException;
 use UVd\PaymentBundle\Proxy\StripeProxy;
 use UVd\UserBundle\Entity\User;
 
+/**
+ * Class StripeListenerPrePersist
+ * @package UVd\PaymentBundle\Listener
+ */
 class StripeListenerPrePersist
 {
     /**
@@ -31,7 +35,7 @@ class StripeListenerPrePersist
      * @param Container $container
      * @param StripeProxy $stripeProxy
      */
-    public function __construct(Container $container,StripeProxy $stripeProxy)
+    public function __construct(Container $container, StripeProxy $stripeProxy)
     {
         $this->container = $container;
         $this->stripeProxy = $stripeProxy;
@@ -45,25 +49,48 @@ class StripeListenerPrePersist
         $entity = $args->getEntity();
 
         if ($entity instanceof Card) {
+
+            if(!$this->getUser()->getStripeId()) {
+                $this->createUser($this->getUser());
+            }
+
             $this->createCard($entity);
         }
-
-        if ($entity instanceof User) {
-            $this->createUser($entity);
-        }
-
     }
 
-    private function createUser(User $user)
+    /**
+     * @param User $user
+     * @throws \UVd\PaymentBundle\Exception\CardDeclinedException
+     */
+    protected function createUser(User $user)
     {
+        try {
 
+            $parameters = [
+                'description' => (String) $user
+            ];
+
+            $customerData = $this
+                ->stripeProxy
+                ->createCustomer($parameters)
+            ;
+
+            $user->setStripeId($customerData['id']);
+
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+
+        }
+        catch(\Stripe_CardError $e) {
+            throw new CardDeclinedException($e->getMessage());
+        }
     }
 
     /**
      * @param Card $card
      * @throws \UVd\PaymentBundle\Exception\CardDeclinedException
      */
-    private function createCard(Card $card)
+    protected function createCard(Card $card)
     {
         try {
 
@@ -78,6 +105,7 @@ class StripeListenerPrePersist
             ;
 
             $card
+                ->setUser($this->getUser())
                 ->setToken($cardData['id'])
                 ->setUser($this->getUser())
                 ->setCardType(Card::mapCardType($cardData['type']))
@@ -85,10 +113,18 @@ class StripeListenerPrePersist
                 ->setExpMonth($cardData['exp_month'])
                 ->setExpYear($cardData['exp_year'])
             ;
+
         }
         catch(\Stripe_CardError $e) {
             throw new CardDeclinedException($e->getMessage());
         }
+    }
+
+    protected function getEntityManager()
+    {
+        return $this->container
+                    ->get('doctrine')
+                    ->getManager();
     }
 
     /**

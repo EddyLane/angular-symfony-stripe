@@ -19,7 +19,6 @@ angular.module('angularStripeTestApp', [
 
 
     .config(function ($routeProvider, $httpProvider, STRIPE_KEY) {
-
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
@@ -33,8 +32,6 @@ angular.module('angularStripeTestApp', [
             .otherwise({
                 redirectTo: '/'
             });
-
-
         Stripe.setPublishableKey(STRIPE_KEY);
     })
 

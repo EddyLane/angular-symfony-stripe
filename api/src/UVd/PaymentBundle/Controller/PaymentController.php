@@ -20,12 +20,12 @@ class PaymentController extends BaseController
             'user' => $this->getUser()
         ]));
 
-        $this->get('uvd.payment.stripe_provider')
+        $return = $this->get('uvd.payment.stripe_provider')
             ->create($payment)
         ;
 
         $manager->save($payment, true);
 
-        return $payment;
+        return $return;
     }
 }

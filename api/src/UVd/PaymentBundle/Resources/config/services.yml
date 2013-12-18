@@ -10,7 +10,6 @@ parameters:
     uvd.payment.entity.user.class: UVd\UserBundle\Entity\User
     uvd.payment.user_manager.class: UVd\UserBundle\Manager\UserManager
 
-    uvd.payment.stripe_provider.class: UVd\PaymentBundle\Provider\StripeProvider
     uvd.payment.stripe_proxy.class: UVd\PaymentBundle\Proxy\StripeProxy
     uvd.payment.stipe_listener_pre_persist.class: UVd\PaymentBundle\Listener\StripeListenerPrePersist
     uvd.payment.stipe_listener_pre_remove.class: UVd\PaymentBundle\Listener\StripeListenerPreRemove
@@ -59,10 +58,6 @@ services:
         tags:
             - { name: doctrine.event_listener, event: preRemove }
         arguments:    [@service_container, @uvd.payment.stripe_proxy]
-
-    uvd.payment.stripe_provider:
-        class: %uvd.payment.stripe_provider.class%
-        arguments: [@uvd.payment.stripe_proxy, @uvd.payment.card_manager]
 
     before_controller:
         class: %podcast.listener.before_controller.class%
