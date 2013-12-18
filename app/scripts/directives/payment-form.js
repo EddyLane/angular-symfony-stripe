@@ -4,7 +4,9 @@ angular.module('angularStripeTestApp')
     .directive('paymentForm', function () {
         return {
             restrict: 'E',
-            scope: {},
+            scope: {
+                cards: '='
+            },
             templateUrl: 'views/partials/payment-form.html',
             controller: function ($scope, stripeFactory, Card) {
 
@@ -38,6 +40,11 @@ angular.module('angularStripeTestApp')
                         });
                     },
 
+                    clearForm = function () {
+                        angular.forEach($scope.values, function (input, key) {
+                            $scope.values[key] = {};
+                        })
+                    },
 
                     /**
                      * save response to database
@@ -45,7 +52,12 @@ angular.module('angularStripeTestApp')
                         saveToken = function (token, cb) {
 
                         var card = new Card({ token: token });
-                        card.$save();
+
+                        card.$save(function (cardData) {
+                            angular.extend(card, cardData);
+                            $scope.cards.push(card);
+                            cb();
+                        });
 
                     };
 
@@ -105,6 +117,8 @@ angular.module('angularStripeTestApp')
                         } else if (status === 200) {
                             saveToken(response.id, function () {
                                 $scope.submitting = false;
+                                $scope.submitted = false;
+                                clearForm();
                             });
                         } else {
                             $scope.submitting = false;

@@ -10,6 +10,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class CardController extends BaseController
 {
 
+    /**
+     * @param $id
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     */
     public function deleteCardAction($id)
     {
         $cardManager = $this->container->get('uvd.payment.card_manager');
@@ -23,6 +27,14 @@ class CardController extends BaseController
     }
 
     /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getCardsAction()
+    {
+        return $this->getUser()->getCards();
+    }
+
+    /**
      * @RequestParam(name="token", description="Stripe token.")
      * @View(statusCode=201)
      */
@@ -30,9 +42,9 @@ class CardController extends BaseController
     {
         $cardManager = $this->container->get('uvd.payment.card_manager');
 
-        $card = $cardManager->create();
+        $card = $cardManager->create($paramFetcher->get('token'));
 
-
+        $cardManager->save($card, true);
 
         return $card;
     }

@@ -8,22 +8,20 @@ angular.module('angularStripeTestApp')
                 'cards': '='
             },
             templateUrl: 'views/partials/card-list.html',
-            controller: function ($scope, Card) {
+            controller: function ($scope) {
                 angular.extend($scope, {
 
                     removeCard: function (card, i) {
 
                         card.deleting = true;
 
-                        Card['delete']({ id: card.id }, function () {
+                        card.$delete(function () {
                             $scope.cards.splice(i, 1);
                         });
+
                     }
 
                 });
-
-
-
             }
         };
     });

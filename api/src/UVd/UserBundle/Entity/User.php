@@ -43,6 +43,12 @@ class User extends BaseUser
      */
     protected $cards;
 
+
+    public function __construct()
+    {
+        $this->cards = new ArrayCollection();
+    }
+
     /**
      * @param Payment $payment
      * @return $this
@@ -87,6 +93,14 @@ class User extends BaseUser
     public function __toString()
     {
         return $this->getUsername() . '(' . $this->getEmail() . ')';
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCards()
+    {
+        return $this->cards;
     }
 
 }

@@ -25,8 +25,9 @@ class Card
     const CARD_TYPE_JCB = 6;
 
     const CARD_NAME_VISA = 'Visa';
+    const CARD_NAME_MASTERCARD = 'Mastercard';
 
-    const CARD_FORMAT_VISA = '****************';
+    const CARD_FORMAT_VISA = '**** **** **** ****';
     const CARD_FORMAT_MASTERCARD = '**** **** **** ****';
     const CARD_FORMAT_AMERICAN_EXPRESS = '**** ****** *****';
     const CARD_FORMAT_DISCOVER = '**** **** **** ****';
@@ -98,6 +99,13 @@ class Card
     protected $payments;
 
 
+    public function __construct($token = null)
+    {
+        if(!is_null($token)) {
+            $this->setToken($token);
+        }
+    }
+
     /**
      * @param $name
      * @return int
@@ -119,7 +127,12 @@ class Card
 
     public static function mapCardTypeName($type)
     {
-        return self::CARD_NAME_VISA;
+        switch($type) {
+            case 1:
+                return self::CARD_NAME_VISA;
+            case 2:
+                return self::CARD_NAME_MASTERCARD;
+        }
 
     }
 
@@ -128,6 +141,8 @@ class Card
         switch($type) {
             case 1:
                 return self::CARD_FORMAT_VISA;
+            case 2:
+                return self::CARD_FORMAT_MASTERCARD;
             default:
                 return self::CARD_FORMAT_VISA;
         }
@@ -152,6 +167,14 @@ class Card
         $this->token = $token;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**

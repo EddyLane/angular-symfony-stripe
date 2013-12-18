@@ -12,6 +12,8 @@ parameters:
 
     uvd.payment.stripe_provider.class: UVd\PaymentBundle\Provider\StripeProvider
     uvd.payment.stripe_proxy.class: UVd\PaymentBundle\Proxy\StripeProxy
+    uvd.payment.stipe_listener_pre_persist.class: UVd\PaymentBundle\Listener\StripeListenerPrePersist
+    uvd.payment.stipe_listener_pre_remove.class: UVd\PaymentBundle\Listener\StripeListenerPreRemove
 
     uvd.payment.entity.card.class: UVd\PaymentBundle\Entity\Card
     uvd.payment.card_manager.class: UVd\PaymentBundle\Manager\CardManager
@@ -45,6 +47,18 @@ services:
         class: %uvd.payment.stripe_proxy.class%
         calls:
             - [ setApiKey, [ '%stripe_secret_key%' ] ]
+
+    uvd.payment.stripe_pre_persist_listener:
+        class: %uvd.payment.stipe_listener_pre_persist.class%
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+        arguments:    [@service_container, @uvd.payment.stripe_proxy]
+
+    uvd.payment.stripe_pre_remove_listener:
+        class: %uvd.payment.stipe_listener_pre_remove.class%
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
+        arguments:    [@service_container, @uvd.payment.stripe_proxy]
 
     uvd.payment.stripe_provider:
         class: %uvd.payment.stripe_provider.class%
