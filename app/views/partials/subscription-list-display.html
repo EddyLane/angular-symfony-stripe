@@ -1,16 +1,22 @@
-<div class="panel">
+<div class="panel" ng-class="{ 'panel-primary' : $parent.currentSubscription.id == subscription.id }">
     <div class="panel-heading">
         <h3 class="panel-title">
             {{ subscription.name }}</h3>
     </div>
     <div class="panel-body">
         <div class="the-price">
-            <h1>
-                ${{ subscription.price }}<span class="subscript">/mo</span></h1>
-            <small>FREE always</small>
+            <h1>${{ subscription.price }}<span class="subscript">/mo</span></h1>
         </div>
     </div>
     <div class="panel-footer">
-        <a class="btn btn-link">Currently Subscribed</a>
+
+        <div ng-if="subscription == $parent.currentSubscription">
+            <a class="btn btn-link">Currently Subscribed</a>
+        </div>
+
+        <div ng-if="subscription != $parent.currentSubscription">
+            <a class="btn btn-primary">Subscribe</a>
+        </div>
+
     </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="container subscription-list">
     <div class="row">
         <div class="col-xs-12 col-md-4" ng-repeat="subscription in subscriptions">
-           <subscription-list-display subscription="subscription"></subscription-list-display>
+           <subscription-list-display ng-click="setCurrent(subscription)"></subscription-list-display>
         </div>
     </div>
 </div>

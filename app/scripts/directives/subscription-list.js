@@ -10,7 +10,13 @@ angular.module('angularStripeTestApp')
             },
             templateUrl: 'views/partials/subscription-list.html',
             controller: function ($scope) {
-                console.log($scope);
+                angular.extend($scope, {
+
+                    setCurrent: function (subscription) {
+                        $scope.currentSubscription = subscription;
+                    }
+
+                });
             }
         };
     });
