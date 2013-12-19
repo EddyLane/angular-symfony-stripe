@@ -166,6 +166,14 @@ class BaseManager implements ManagerInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function findAll()
+    {
+        return $this->getRepository()->findAll();
+    }
+
+    /**
      * @param $id
      * @return mixed
      */

@@ -7,10 +7,7 @@
 
                     <login-form user="user" ng-if="!formType"></login-form>
 
-                    <register-form user="user" ng-if="formType"></register-form>
-
                     <a class="forgotLnk" href="http://www.jquery2dotnet.com">I can't access my account</a>
-
 
                     <div class="or-box" ng-show="!formType">
                         <span class="or">OR</span>
@@ -23,11 +20,7 @@
                         </div>
                     </div>
 
-
-
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -49,4 +42,7 @@
             </div>
         </div>
     </div>
+
+    <subscription-list subscriptions="subscriptions" current="currentSubscription"></subscription-list>
+
 </div>

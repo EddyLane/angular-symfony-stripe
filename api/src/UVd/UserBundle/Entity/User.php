@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="uvd_user")
  *
  * @ExclusionPolicy("all")
  */

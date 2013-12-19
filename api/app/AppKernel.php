@@ -21,11 +21,11 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 
             new UVd\PaymentBundle\UVdPaymentBundle(),
-            new UVd\UserBundle\UVdUserBundle()
-,
-            new UVd\SubscriptionBundle\UVdSubscriptionBundle(),
+            new UVd\UserBundle\UVdUserBundle(),
+            new UVd\SubscriptionBundle\UVdSubscriptionBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

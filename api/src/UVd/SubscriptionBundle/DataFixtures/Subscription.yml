@@ -1,0 +1,16 @@
+UVd\SubscriptionBundle\Entity\Subscription:
+
+    basic_subscription:
+        name: Basic
+        price: 0.00
+        description: It id basic!
+
+    advanced_subscription:
+        name: Advanced
+        price: 5.00
+        description: It id advanced!
+
+    ultimate_subscription:
+        name: It's god damn ultimate
+        price: 10.00
+        description: It id just the fucking dogs bollocks

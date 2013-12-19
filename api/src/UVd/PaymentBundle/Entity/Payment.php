@@ -11,7 +11,7 @@ use UVd\UserBundle\Entity\User;
 /**
  * Payment
  *
- * @ORM\Table("payment")
+ * @ORM\Table("uvd_payment")
  * @ORM\Entity(repositoryClass="UVd\PaymentBundle\Repository\PaymentRepository")
  *
  * @ExclusionPolicy("all")

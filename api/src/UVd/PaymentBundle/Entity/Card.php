@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * Card
  *
- * @ORM\Table()
+ * @ORM\Table("uvd_card")
  * @ORM\Entity
  * @ExclusionPolicy("all")
  */

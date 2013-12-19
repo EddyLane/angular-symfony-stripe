@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Subscription
  *
- * @ORM\Table()
+ * @ORM\Table("uvd_subscription")
  * @ORM\Entity(repositoryClass="UVd\SubscriptionBundle\Entity\SubscriptionRepository")
  */
 class Subscription

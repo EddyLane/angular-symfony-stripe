@@ -1,0 +1,9 @@
+parameters:
+    uvd.subscription.subscription_manager.class: UVd\SubscriptionBundle\Manager\SubscriptionManager
+    uvd.subscription.entity.subscription.class: UVd\SubscriptionBundle\Entity\Subscription
+
+services:
+    uvd.payment.payment_manager:
+        class: %uvd.subscription.subscription_manager.class%
+        parent: uvd.payment.base_manager
+        arguments: [%uvd.subscription.entity.subscription.class%]

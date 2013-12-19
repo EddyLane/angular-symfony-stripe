@@ -1,8 +1,3 @@
-u_vd_subscription:
-    resource: "@UVdSubscriptionBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 pay:
     resource: UVd\PaymentBundle\Controller\PaymentController
     type:     rest
@@ -18,6 +13,10 @@ card:
     type:     rest
     prefix:   /card
 
+subscription:
+    resource: UVd\SubscriptionBundle\Controller\SubscriptionController
+    type:     rest
+    prefix:   /subscription
 
 fos_user_security_check:
     path: /security/login
