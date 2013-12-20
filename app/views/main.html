@@ -31,7 +31,14 @@
     <subscription-list subscriptions="subscriptions" current="currentSubscription" current-selection="currentSelection"></subscription-list>
 
     <div ng-if="currentSelection.price > 0">
+
+
+        <h3>{{ currentSelection.price }}/mo {{ currentSelection.name }}</h3>
+        <small>{{ currentSelection.description }}</small>
+
         <div class="row">
+
+
             <div class="col-md-8">
                 <card-list cards="user.cards"></card-list>
             </div>
