@@ -6,14 +6,15 @@ angular.module('angularStripeTestApp')
             restrict: 'E',
             scope: {
                 'subscriptions': '=',
-                'currentSubscription': '=current'
+                'currentSubscription': '=current',
+                'currentSelection': '=currentSelection'
             },
             templateUrl: 'views/partials/subscription-list.html',
             controller: function ($scope) {
                 angular.extend($scope, {
 
                     setCurrent: function (subscription) {
-                        $scope.currentSubscription = subscription;
+                        $scope.currentSelection = subscription;
                     }
 
                 });

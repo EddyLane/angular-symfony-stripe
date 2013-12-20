@@ -204,5 +204,12 @@ body
 }
 .subscription-list
 {
-    margin-top:100px;
+    margin-bottom:100px;
+}
+.payment-display-panel {
+    cursor: pointer;
+}
+
+td {
+    vertical-align: middle !important;
 }

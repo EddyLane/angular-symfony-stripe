@@ -6,5 +6,6 @@ angular.module('angularStripeTestApp')
 
         $scope.subscriptions = Subscription.query(function (subscriptions) {
             $scope.currentSubscription = subscriptions[0];
+            $scope.currentSelection = subscriptions[0];
         });
     });

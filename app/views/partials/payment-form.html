@@ -1,46 +1,52 @@
-<form id="payment-form" name="form" ng-submit="pay(values)"novalidate>
+<form id="payment-form" class="panel panel-primary" name="form" ng-submit="pay(values)"novalidate>
 
-    <div class="alert alert-danger" ng-if="error">
-        <strong>Error</strong> Payment not successful
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Add Card</h3>
     </div>
-
-    <div class="alert alert-success" ng-if="success">
-        <strong>Success</strong> Payment successful
-    </div>
-
-    <div class="row">
-
-        <div class="col-xs-8">
-            <div class="form-group" ng-class="{ 'has-error' : (form.number.$invalid || values.number.error) && submitted }">
-                <label>Card Number</label>
-                <input type="text" class="form-control" name="number" payments-format="card" payments-validate="card" payments-type-model="type" ng-model="values.number.value" required/>
-                <span class="help-block" ng-if="values.number.error">{{ values.number.error }}</span>
-            </div>
+    <div class="panel-body">
+        <div class="alert alert-danger" ng-if="error">
+            <strong>Error</strong> Payment not successful
         </div>
 
-        <div class="col-xs-4">
-            <div class="form-group" ng-class="{ 'has-error' : (form.cvc.$invalid || values.cvc.error) && submitted }">
-                <label>CVC</label>
-                <input type="text" payments-format="cvc" class="form-control" name="cvc" payments-validate="cvc" payments-type-model="type" ng-model="values.cvc.value" required/>
-                <span class="help-block" ng-if="values.cvc.error">{{ values.cvc.error }}</span>
+        <div class="alert alert-success" ng-if="success">
+            <strong>Success</strong> Payment successful
+        </div>
+
+        <div class="row">
+
+            <div class="col-xs-8">
+                <div class="form-group" ng-class="{ 'has-error' : (form.number.$invalid || values.number.error) && submitted }">
+                    <label>Card Number</label>
+                    <input type="text" class="form-control" name="number" payments-format="card" payments-validate="card" payments-type-model="type" ng-model="values.number.value" required/>
+                    <span class="help-block" ng-if="values.number.error">{{ values.number.error }}</span>
+                </div>
             </div>
 
+            <div class="col-xs-4">
+                <div class="form-group" ng-class="{ 'has-error' : (form.cvc.$invalid || values.cvc.error) && submitted }">
+                    <label>CVC</label>
+                    <input type="text" payments-format="cvc" class="form-control" name="cvc" payments-validate="cvc" payments-type-model="type" ng-model="values.cvc.value" required/>
+                    <span class="help-block" ng-if="values.cvc.error">{{ values.cvc.error }}</span>
+                </div>
+
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="row">
-        <div class="col-xs-5">
-            <div class="form-group" ng-class="{ 'has-error' : (form.expiry.$invalid || values.exp_month.error || values.exp_year.error) && submitted }">
-                <label>Expiry</label>
-                <input type="text" class="form-control" name="expiry" ng-model="values.expiry.value" payments-format="expiry" payments-validate="expiry" required/>
-                <span class="help-block" ng-if="values.exp_year.error">{{ values.exp_year.error }}</span>
-                <span class="help-block" ng-if="values.exp_month.error">{{ values.exp_month.error }}</span>
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="form-group" ng-class="{ 'has-error' : (form.expiry.$invalid || values.exp_month.error || values.exp_year.error) && submitted }">
+                    <label>Expiry</label>
+                    <input type="text" class="form-control" name="expiry" ng-model="values.expiry.value" payments-format="expiry" payments-validate="expiry" required/>
+                    <span class="help-block" ng-if="values.exp_year.error">{{ values.exp_year.error }}</span>
+                    <span class="help-block" ng-if="values.exp_month.error">{{ values.exp_month.error }}</span>
+                </div>
+            </div>
+            <div class="col-xs-7">
+                <img ng-show="type" ng-src="img/creditcards/{{ type }}.png" class="card-icon pull-right">
             </div>
         </div>
-        <div class="col-xs-7">
-            <img ng-show="type" ng-src="img/creditcards/{{ type }}.png" class="card-icon pull-right">
-        </div>
+        <button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Add Card</button>
     </div>
-    <button type="submit" class="btn btn-success btn-bg btn-block" ng-disabled="submitting">Submit Payment</button>
 </form>

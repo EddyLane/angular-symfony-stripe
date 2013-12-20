@@ -1,4 +1,4 @@
-<div class="panel" ng-class="{ 'panel-primary' : $parent.currentSubscription.id == subscription.id }">
+<div class="panel payment-display-panel" ng-class="{ 'panel-primary' : currentSelection.id == subscription.id }">
     <div class="panel-heading">
         <h3 class="panel-title">
             {{ subscription.name }}</h3>
@@ -10,11 +10,11 @@
     </div>
     <div class="panel-footer">
 
-        <div ng-if="subscription == $parent.currentSubscription">
+        <div ng-if="subscription.id == currentSubscription.id">
             <a class="btn btn-link">Currently Subscribed</a>
         </div>
 
-        <div ng-if="subscription != $parent.currentSubscription">
+        <div ng-if="subscription.id != currentSubscription.id">
             <a class="btn btn-primary">Subscribe</a>
         </div>
 

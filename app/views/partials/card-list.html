@@ -1,7 +1,7 @@
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Card Number</th><th>Type</th><th>Expires</th><th></th>
+            <th>Card Number</th><th>Type</th><th>Expires</th><th></th><th></th>
         </tr>
     </thead>
     <tbody>
@@ -13,8 +13,13 @@
                 <img ng-src="img/creditcards/{{ card.card_type_name }}.png" height="30">
             </td>
             <td class="text-right">
-                <button class="btn btn-xs btn-danger" ng-click="removeCard(card, $index)" ng-disabled="card.deleting"><i class="glyphicon glyphicon-remove"></i> Remove card</button>
+                <button class="btn btn-xs btn-link" ng-click="removeCard(card, $index)" ng-disabled="card.deleting"><i class="glyphicon glyphicon-remove"></i> Remove card</button>
             </td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="5"></th>
+        </tr>
+    </tfoot>
 </table>
