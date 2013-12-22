@@ -14,7 +14,7 @@ class SubscriptionController extends FOSRestController
 {
     public function getSubscriptionsAction()
     {
-        $manager = $this->container->get('uvd.payment.payment_manager');
+        $manager = $this->container->get('uvd.subscription.subscription_manager');
         return $manager->findAll();
     }
 } 

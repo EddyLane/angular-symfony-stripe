@@ -7,10 +7,10 @@ UVd\SubscriptionBundle\Entity\Subscription:
 
     advanced_subscription:
         name: Advanced
-        price: 5.00
+        price: 500.00
         description: It id advanced!
 
     ultimate_subscription:
         name: It's god damn ultimate
-        price: 10.00
+        price: 1000.00
         description: It id just the fucking dogs bollocks

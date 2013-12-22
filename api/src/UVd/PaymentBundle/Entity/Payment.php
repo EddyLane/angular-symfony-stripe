@@ -51,6 +51,14 @@ class Payment
     protected $card;
 
     /**
+     * @var \UVd\SubscriptionBundle\Entity\Subscription
+     *
+     * @ORM\ManyToOne(targetEntity="UVd\SubscriptionBundle\Entity\Subscription", inversedBy="payments", cascade={"all"})
+     * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id", nullable=false)
+     */
+    protected $subscription;
+
+    /**
      * @var datetime $created
      *
      * @Timestampable(on="create")
@@ -64,7 +72,7 @@ class Payment
      * @ORM\Column(name="completed", type="boolean", nullable=true)
      * @Expose
      */
-    private $completed = false;
+    private $completed;
 
     /**
      * Get id
@@ -87,6 +95,7 @@ class Payment
             return;
         }
 
+        $this->completed = false;
         $this->setToken($data['token']);
         $this->setUser($data['user']);
     }

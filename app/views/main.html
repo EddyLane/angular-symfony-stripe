@@ -28,12 +28,12 @@
     </div>
 
 
-    <subscription-list subscriptions="subscriptions" current="currentSubscription" current-selection="currentSelection"></subscription-list>
+    <subscription-list subscriptions="subscriptions" current="user.subscription"></subscription-list>
 
     <div ng-if="currentSelection.price > 0">
 
 
-        <h3>{{ currentSelection.price }}/mo {{ currentSelection.name }}        <small>{{ currentSelection.description }}</small>        </h3>
+        <h3>{{ currentSelection.price }}/mo {{ currentSelection.name }}<small>{{ currentSelection.description }}</small></h3>
 
         <div class="row">
 

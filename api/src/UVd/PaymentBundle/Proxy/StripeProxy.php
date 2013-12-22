@@ -11,6 +11,7 @@ namespace UVd\PaymentBundle\Proxy;
 use Stripe;
 use Stripe_Card;
 use Stripe_Customer;
+use Stripe_Plan;
 
 class StripeProxy implements StripeProxyInterface
 {
@@ -48,6 +49,11 @@ class StripeProxy implements StripeProxyInterface
     public function retrieveCustomer($id)
     {
         return Stripe_Customer::retrieve($id);
+    }
+
+    public function createPlan(array $data)
+    {
+        return Stripe_Plan::create($data);
     }
 
 } 

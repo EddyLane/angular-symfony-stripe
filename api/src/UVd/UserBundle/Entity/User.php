@@ -8,6 +8,7 @@ use UVd\PaymentBundle\Entity\Payment;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use UVd\SubscriptionBundle\Entity\Subscription;
 
 /**
  * @ORM\Entity
@@ -37,13 +38,24 @@ class User extends BaseUser
     protected $payments;
 
     /**
+     * @var \UVd\SubscriptionBundle\Entity\Subscription
+     *
+     * @Expose
+     * @ORM\OneToOne(targetEntity="UVd\SubscriptionBundle\Entity\Subscription")
+     * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id")
+     */
+    protected $subscription;
+
+    /**
      * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Card", mappedBy="user", cascade={"all"})
      * @Expose
      * @var ArrayCollection $cards
      */
     protected $cards;
 
-
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -102,6 +114,25 @@ class User extends BaseUser
     public function getCards()
     {
         return $this->cards;
+    }
+
+    /**
+     * @param Subscription $subscription
+     * @return $this
+     */
+    public function setSubscription(Subscription $subscription)
+    {
+        $this->subscription = $subscription;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscription()
+    {
+        return $this->subscription;
     }
 
 }

@@ -3,18 +3,22 @@
 namespace UVd\SubscriptionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Subscription
  *
  * @ORM\Table("uvd_subscription")
  * @ORM\Entity(repositoryClass="UVd\SubscriptionBundle\Entity\SubscriptionRepository")
+ *
+ * @ExclusionPolicy("all")
  */
 class Subscription
 {
     /**
      * @var integer
-     *
+     * @Expose
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -23,24 +27,32 @@ class Subscription
 
     /**
      * @var string
-     *
+     * @Expose
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Expose
      * @ORM\Column(name="price", type="decimal")
      */
     private $price;
 
     /**
      * @var string
-     *
+     * @Expose
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Payment", mappedBy="subscription", cascade={"all"})
+     *
+     * @var ArrayCollection $payments
+     */
+    protected $payments;
 
 
     /**
