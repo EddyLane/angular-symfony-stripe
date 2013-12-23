@@ -16,9 +16,7 @@ angular.module('angularStripeTestApp')
                 $scope.submit = function () {
                     $scope.submitting = true;
 
-                    $scope.subscription.$subscribes({
-                        id: $scope.card.id
-                    }, function () {
+                    $scope.subscription.$subscribes(function () {
                         $scope.submitting = false;
                         $scope.user.subscription = $scope.subscription;
                     });

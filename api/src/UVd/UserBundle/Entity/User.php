@@ -41,8 +41,8 @@ class User extends BaseUser
      * @var \UVd\SubscriptionBundle\Entity\Subscription
      *
      * @Expose
-     * @ORM\OneToOne(targetEntity="UVd\SubscriptionBundle\Entity\Subscription")
-     * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="UVd\SubscriptionBundle\Entity\Subscription")
+     * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id", nullable=true, unique=false)
      */
     protected $subscription;
 
@@ -53,6 +53,18 @@ class User extends BaseUser
      * @var ArrayCollection $cards
      */
     protected $cards;
+
+    /**
+     * @ORM\Column(name="subscription_start", type="datetime", nullable=true, options={"default":null})
+     * @Expose
+     */
+    protected $subscriptionStart;
+
+    /**
+     * @ORM\Column(name="subscription_end", type="datetime", nullable=true, options={"default":null})
+     * @Expose
+     */
+    protected $subscriptionEnd;
 
     /**
      *
