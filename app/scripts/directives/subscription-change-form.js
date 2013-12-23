@@ -16,9 +16,10 @@ angular.module('angularStripeTestApp')
                 $scope.submit = function () {
                     $scope.submitting = true;
 
-                    $scope.subscription.$subscribes(function () {
+                    $scope.subscription.$subscribes(function (data) {
                         $scope.submitting = false;
                         $scope.user.subscription = $scope.subscription;
+                        $scope.user.refresh();
                     });
                 };
 

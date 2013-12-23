@@ -35,6 +35,40 @@ class Payment
     private $token;
 
     /**
+     * @param \UVd\UserBundle\Entity\User $card
+     */
+    public function setCard($card)
+    {
+        $this->card = $card;
+        return $this;
+    }
+
+    /**
+     * @return \UVd\UserBundle\Entity\User
+     */
+    public function getCard()
+    {
+        return $this->card;
+    }
+
+    /**
+     * @param \UVd\SubscriptionBundle\Entity\Subscription $subscription
+     */
+    public function setSubscription($subscription)
+    {
+        $this->subscription = $subscription;
+        return $this;
+    }
+
+    /**
+     * @return \UVd\SubscriptionBundle\Entity\Subscription
+     */
+    public function getSubscription()
+    {
+        return $this->subscription;
+    }
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="UVd\UserBundle\Entity\User", inversedBy="payments")
@@ -193,5 +227,7 @@ class Payment
     {
         return $this->completed;
     }
+
+
 
 }

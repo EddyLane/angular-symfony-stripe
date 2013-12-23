@@ -26,6 +26,11 @@ class UserController extends BaseController
         return $user;
     }
 
+    public function getUserInvoicesAction($id)
+    {
+
+    }
+
     /**
      * Get currently authenticated user
      *

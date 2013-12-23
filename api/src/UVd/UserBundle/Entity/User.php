@@ -55,16 +55,54 @@ class User extends BaseUser
     protected $cards;
 
     /**
+     * @var \DateTime
      * @ORM\Column(name="subscription_start", type="datetime", nullable=true, options={"default":null})
      * @Expose
      */
     protected $subscriptionStart;
 
     /**
+     * @var \DateTime
      * @ORM\Column(name="subscription_end", type="datetime", nullable=true, options={"default":null})
      * @Expose
      */
     protected $subscriptionEnd;
+
+    /**
+     * @param \DateTime $subscriptionEnd
+     * @return $this
+     */
+    public function setSubscriptionEnd(\DateTime $subscriptionEnd)
+    {
+        $this->subscriptionEnd = $subscriptionEnd;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptionEnd()
+    {
+        return $this->subscriptionEnd;
+    }
+
+    /**
+     * @param \DateTime $subscriptionStart
+     * @return $this
+     */
+    public function setSubscriptionStart(\DateTime $subscriptionStart)
+    {
+        $this->subscriptionStart = $subscriptionStart;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubscriptionStart()
+    {
+        return $this->subscriptionStart;
+    }
 
     /**
      *
@@ -147,5 +185,7 @@ class User extends BaseUser
     {
         return $this->subscription;
     }
+
+
 
 }

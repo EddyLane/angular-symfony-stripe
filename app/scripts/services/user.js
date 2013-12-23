@@ -6,6 +6,8 @@ angular.module('angularStripeTestApp')
 
         var defer = $q.defer(),
 
+            self = this,
+
             fns = {
 
                 logout: function() {
@@ -48,6 +50,13 @@ angular.module('angularStripeTestApp')
                         });
 
                     return defer.promise;
+                },
+
+                refresh: function () {
+                    $http.get(USER_ME_URL)
+                        .success(function (data) {
+                            angular.extend(self, data);
+                        });
                 },
 
                 authenticate: function (username, password) {

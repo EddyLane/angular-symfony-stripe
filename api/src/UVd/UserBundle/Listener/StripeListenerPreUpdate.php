@@ -9,7 +9,9 @@
 namespace UVd\UserBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use UVd\PaymentBundle\Exception\CardDeclinedException;
+use UVd\PaymentBundle\Manager\PaymentManager;
 use UVd\SubscriptionBundle\Entity\Subscription;
 use Symfony\Component\DependencyInjection\Container;
 use UVd\PaymentBundle\Proxy\StripeProxy;
@@ -27,6 +29,11 @@ class StripeListenerPreUpdate {
     protected $stripeProxy;
 
     /**
+     * @var \UVd\PaymentBundle\Manager\PaymentManager
+     */
+    protected $paymentManager;
+
+    /**
      * @param Container $container
      * @param StripeProxy $stripeProxy
      */
@@ -36,17 +43,18 @@ class StripeListenerPreUpdate {
         $this->stripeProxy = $stripeProxy;
     }
 
+
     /**
-     * @param LifecycleEventArgs $args
-     * @throws \UVd\PaymentBundle\Exception\CardDeclinedException
+     * @param PreUpdateEventArgs $eventArgs
+     * @throws \UVd\PaymentBundle\Exception\CardDeclinedException]
      */
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
-        $entity = $args->getEntity();
+        $entity = $eventArgs->getEntity();
 
         if ($entity instanceof User) {
 
-            if(!$entity->getStripeId() || !$entity->getSubscription()) {
+            if(!$entity->getStripeId() || !$entity->getSubscription() || !$eventArgs->hasChangedField('subscription')) {
                 return;
             }
 
@@ -56,7 +64,20 @@ class StripeListenerPreUpdate {
                     ->retrieveCustomer($entity->getStripeId())
                 ;
 
-                $customer->updateSubscription(["plan" => $entity->getSubscription()->getName(), "prorate" => true]);
+                $subscriptionData = $customer->updateSubscription(["plan" => $entity->getSubscription()->getName(), "prorate" => true]);
+
+                $payment = $this->container->get('uvd.payment.payment_manager')->create();
+
+                $payment
+                        ->setSubscription($entity->getSubscription())
+                        ->setCard($entity->getCards()->first())
+                        ->setToken($subscriptionData['id'])
+                ;
+
+                $entity->addPayment($payment);
+
+                $entity->setSubscriptionStart(new \DateTime('@' . $subscriptionData['current_period_start']));
+                $entity->setSubscriptionEnd(new \DateTime('@' . $subscriptionData['current_period_end']));
 
             }
             catch(\Stripe_CardError $e) {

@@ -30,7 +30,15 @@
 
     <hr>
 
-    <div class="row" ng-show="selected.id !== user.subscription.id" class="container card-management">
+    <div class="row" ng-show="selected.id === user.subscription.id">
+
+        <strong>Subscription start</strong> {{ user.subscription_start|amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}
+        <strong>Subscription end</strong> {{ user.subscription_end|amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}
+
+
+    </div>
+
+    <div class="row" ng-show="selected.id !== user.subscription.id">
 
         <h3>Subscribing to <strong>{{ selected.name }}</strong> | {{ selected.price / 100 | currency:"£"}}<small>/mo</small></h3>
 

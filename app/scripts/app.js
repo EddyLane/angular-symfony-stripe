@@ -7,7 +7,8 @@ angular.module('angularStripeTestApp', [
         'ngSanitize',
         'ngRoute',
         'ngAnimate',
-        
+        'angularMoment',
+
         'chieffancypants.loadingBar',
         'angularPayments'
     ])
