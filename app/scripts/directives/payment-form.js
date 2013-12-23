@@ -55,7 +55,7 @@ angular.module('angularStripeTestApp')
 
                         card.$save(function (cardData) {
                             angular.extend(card, cardData);
-                            $scope.cards.push(card);
+                            $scope.cards.unshift(card);
                             cb();
                         });
 

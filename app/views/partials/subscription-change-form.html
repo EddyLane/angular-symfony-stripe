@@ -1,0 +1,17 @@
+<h4>{{ card.card_type_name }} | Expires: {{ card.exp_month }}/{{ card.exp_year }}</h4>
+
+<form role="form" ng-submit="submit()">
+
+    <div class="checkbox" ng-show="subscription.price > 0">
+        <label>
+            <input type="checkbox" ng-model="confirmed"> Click to confirm that you are aged 18 or over and that you accept our <a href="#">terms and conditions</a>
+        </label>
+    </div>
+
+    <div class="well well-sm" ng-if="subscription.price > 0">
+        <button class="btn btn-lg btn-primary" type="submit" ng-disabled="!confirmed || submitting">Change subscription</button>
+    </div>
+    <div class="well well-sm" ng-if="subscription.price === 0">
+        <button class="btn btn-lg btn-primary" type="submit" ng-disabled="submitting">Cancel subscription</button>
+    </div>
+</form>

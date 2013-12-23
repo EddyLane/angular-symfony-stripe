@@ -21,7 +21,7 @@ angular.module('angularStripeTestApp', [
 
     .config(function ($routeProvider, $httpProvider, STRIPE_KEY) {
         $routeProvider
-            .when('/', {
+            .when('/subscriptions', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl',
                 resolve: {
@@ -30,8 +30,17 @@ angular.module('angularStripeTestApp', [
                     }]
                 }
             })
+            .when('/cards', {
+                templateUrl: 'views/cards.html',
+                controller: 'CardCtrl',
+                resolve: {
+                    user: ['userService', function (userService) {
+                        return userService;
+                    }]
+                }
+            })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/subscriptions'
             });
         Stripe.setPublishableKey(STRIPE_KEY);
     })

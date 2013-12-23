@@ -6,7 +6,7 @@
  * Time: 21:06
  */
 
-namespace UVd\SubscriptionBundle\Listener;
+namespace UVd\UserBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use UVd\PaymentBundle\Exception\CardDeclinedException;
@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Container;
 use UVd\PaymentBundle\Proxy\StripeProxy;
 use UVd\UserBundle\Entity\User;
 
-class StripeListenerPrePersist {
+class StripeListenerPreUpdate {
     /**
      * @var \Symfony\Component\DependencyInjection\Container
      */
@@ -38,20 +38,30 @@ class StripeListenerPrePersist {
 
     /**
      * @param LifecycleEventArgs $args
+     * @throws \UVd\PaymentBundle\Exception\CardDeclinedException
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Subscription) {
+        if ($entity instanceof User) {
 
-            $this->stripeProxy->createPlan([
-                "amount" => $entity->getPrice(),
-                "interval" => "month",
-                "name" => $entity->getDescription(),
-                "currency" => "gbp",
-                "id" => $entity->getName()
-            ]);
+            if(!$entity->getStripeId() || !$entity->getSubscription()) {
+                return;
+            }
+
+            try {
+                $customer = $this
+                    ->stripeProxy
+                    ->retrieveCustomer($entity->getStripeId())
+                ;
+
+                $customer->updateSubscription(["plan" => $entity->getSubscription()->getName(), "prorate" => true]);
+
+            }
+            catch(\Stripe_CardError $e) {
+                throw new CardDeclinedException($e->getMessage());
+            }
 
         }
     }

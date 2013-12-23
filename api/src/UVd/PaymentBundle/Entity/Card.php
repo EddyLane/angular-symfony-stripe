@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Gedmo\Mapping\Annotation\Timestampable;
 /**
  * Card
  *
@@ -26,6 +27,10 @@ class Card
 
     const CARD_NAME_VISA = 'Visa';
     const CARD_NAME_MASTERCARD = 'Mastercard';
+    const CARD_NAME_AMERICAN_EXPRESS = 'American Express';
+    const CARD_NAME_DISCOVER = 'Discover';
+    const CARD_NAME_DINERS_CLUB = 'Diners Club';
+    const CARD_NAME_JCB = 'JCB';
 
     const CARD_FORMAT_VISA = '**** **** **** ****';
     const CARD_FORMAT_MASTERCARD = '**** **** **** ****';
@@ -82,6 +87,15 @@ class Card
      * @ORM\Column(name="token", type="string")
      */
     private $token;
+
+
+    /**
+     * @var datetime $created
+     *
+     * @Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    protected $created;
 
     /**
      * @var User
@@ -143,6 +157,8 @@ class Card
                 return self::CARD_FORMAT_VISA;
             case 2:
                 return self::CARD_FORMAT_MASTERCARD;
+            case 3:
+                return self::CARD_FORMAT_AMERICAN_EXPRESS;
             default:
                 return self::CARD_FORMAT_VISA;
         }

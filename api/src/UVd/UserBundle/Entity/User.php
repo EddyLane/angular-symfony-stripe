@@ -49,6 +49,7 @@ class User extends BaseUser
     /**
      * @ORM\OneToMany(targetEntity="UVd\PaymentBundle\Entity\Card", mappedBy="user", cascade={"all"})
      * @Expose
+     * @ORM\OrderBy({"created" = "DESC"})
      * @var ArrayCollection $cards
      */
     protected $cards;

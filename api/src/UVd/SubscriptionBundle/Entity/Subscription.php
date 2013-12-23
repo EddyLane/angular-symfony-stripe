@@ -133,4 +133,15 @@ class Subscription
     {
         return $this->description;
     }
+
+    /**
+     * to String
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }

@@ -101,13 +101,11 @@ body
 }
 .panel
 {
-    text-align: center;
 }
 .panel:hover { box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4), 0 1px 5px rgba(130, 130, 130, 0.35); }
 .panel-body
 {
     padding: 0px;
-    text-align: center;
 }
 
 .the-price
@@ -204,7 +202,6 @@ body
 }
 .subscription-list
 {
-    margin-bottom:100px;
 }
 .payment-display-panel {
     cursor: pointer;
@@ -212,4 +209,20 @@ body
 
 td {
     vertical-align: middle !important;
+}
+.card-management {
+    -webkit-transition:0.5s linear all;
+    transition:0.5s linear all;
+    opacity:1;
+}
+
+.card-management.ng-hide {
+    opacity:0;
+}
+
+.card-management.ng-hide-add, .card-management.ng-hide-remove {
+    /* this needs to be here to make it visible during the animation
+       since the .ng-hide class is already on the element rendering
+       it as hidden. */
+    display:block!important;
 }

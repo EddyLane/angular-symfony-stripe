@@ -23,27 +23,31 @@
 
     <div class="row">
         Logged in as {{ user.username }} <strong>({{ user.email }})</strong>
-
         <hr>
     </div>
 
+    <subscription-list></subscription-list>
 
-    <subscription-list subscriptions="subscriptions" current="user.subscription"></subscription-list>
+    <hr>
 
-    <div ng-if="currentSelection.price > 0">
+    <div class="row" ng-show="selected.id !== user.subscription.id" class="container card-management">
 
+        <h3>Subscribing to <strong>{{ selected.name }}</strong> | {{ selected.price / 100 | currency:"£"}}<small>/mo</small></h3>
 
-        <h3>{{ currentSelection.price }}/mo {{ currentSelection.name }}<small>{{ currentSelection.description }}</small></h3>
-
-        <div class="row">
-
-
-            <div class="col-md-8">
-                <card-list cards="user.cards"></card-list>
-            </div>
-            <div class="col-md-4">
+            <div ng-if="selected.price > 0 && user.cards.length === 0">
                 <payment-form cards="user.cards"></payment-form>
             </div>
-        </div>
+
+            <div ng-if="user.cards.length > 0">
+                <subscription-change-form user="user" card="user.cards[0]" subscription="selected"></subscription-change-form>
+            </div>
+    </div>
+
+
+
+</div>
+<div class="container">
+    <div class="row">
+
     </div>
 </div>

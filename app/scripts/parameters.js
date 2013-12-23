@@ -7,5 +7,5 @@ angular.module('angularStripeTestApp')
     .constant('PAYMENT_URL', 'http://app.angular-symfony-stripe.local/app_dev.php/payment/pays')
 
     .constant('CARD_URL', 'http://app.angular-symfony-stripe.local/app_dev.php/card/cards/:id')
-    .constant('SUBSCRIPTION_URL', 'http://app.angular-symfony-stripe.local/app_dev.php/subscription/subscriptions/:id')
+    .constant('SUBSCRIPTION_URL', 'http://app.angular-symfony-stripe.local/app_dev.php/subscription/subscriptions/:subscriptionId')
     .constant('USER_ME_URL', 'http://app.angular-symfony-stripe.local/app_dev.php/user/me');

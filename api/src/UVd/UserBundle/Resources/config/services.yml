@@ -1,5 +1,8 @@
 parameters:
     vendor_security.authentication_handler: UVd\UserBundle\Handler\AuthenticationHandler
+    uvd.user.stipe_listener_pre_update.class: UVd\UserBundle\Listener\StripeListenerPreUpdate
+    uvd.user.user_manager.class: UVd\UserBundle\Manager\UserManager
+    uvd.user.entity.user.class: UVd\UserBundle\Entity\User
 
 services:
     authentication_handler:
@@ -7,3 +10,14 @@ services:
         arguments:  [@fos_rest.view_handler]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
+
+    uvd.user.stripe_pre_update_listener:
+        class: %uvd.user.stipe_listener_pre_update.class%
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+        arguments:    [@service_container, @uvd.payment.stripe_proxy]
+
+    uvd.user.user_manager:
+        class: %uvd.user.user_manager.class%
+        parent: uvd.payment.base_manager
+        arguments: [%uvd.user.entity.user.class%]
