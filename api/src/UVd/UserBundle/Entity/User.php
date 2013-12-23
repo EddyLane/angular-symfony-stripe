@@ -111,6 +111,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->cards = new ArrayCollection();
+        $this->payments = new ArrayCollection();
     }
 
     /**

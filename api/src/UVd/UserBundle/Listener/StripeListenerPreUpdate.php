@@ -72,6 +72,8 @@ class StripeListenerPreUpdate {
                         ->setSubscription($entity->getSubscription())
                         ->setCard($entity->getCards()->first())
                         ->setToken($subscriptionData['id'])
+                        ->setUser($entity)
+                        ->setCompleted(true)
                 ;
 
                 $entity->addPayment($payment);

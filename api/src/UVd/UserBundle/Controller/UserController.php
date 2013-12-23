@@ -21,14 +21,17 @@ class UserController extends BaseController
             throw new HttpException(403, 'You are not this user');
         }
 
-        $user = $this->get('uvd.payment.user_manager')->find($id);
+        $user = $this->get('uvd.user.user_manager')->find($id);
 
         return $user;
     }
 
-    public function getUserInvoicesAction($id)
+    public function getInvoicesAction()
     {
-
+        return $this
+            ->getUser()
+            ->getPayments()
+        ;
     }
 
     /**

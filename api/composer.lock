@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3f19ccdbe729944c4010b97a822d7c67",
+    "hash": "d5448075d8e9f007579baff5d543955d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1473,6 +1473,52 @@
                 "psr-3"
             ],
             "time": "2013-11-14 19:48:31"
+        },
+        {
+            "name": "mrp/stripe-webhook-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mathewpeterson/StripeWebhookBundle.git",
+                "reference": "97cfcab9146f5d818522fd759fc90426d085e0d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mathewpeterson/StripeWebhookBundle/zipball/97cfcab9146f5d818522fd759fc90426d085e0d7",
+                "reference": "97cfcab9146f5d818522fd759fc90426d085e0d7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "1.0.*",
+                "symfony/yaml": "2.1.*",
+                "twig/twig": "*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "MRP\\StripeWebhookBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathew R. Peterson",
+                    "email": "mathewpeterson@me.com"
+                }
+            ],
+            "description": "A Symfony 2 bundle for handling Stripe Webhooks.",
+            "homepage": "http://github.com/mathewpeterson/StripeWebhookBundle",
+            "keywords": [
+                "stripe",
+                "webhooks"
+            ],
+            "time": "2013-06-04 21:12:49"
         },
         {
             "name": "nelmio/alice",
@@ -3501,6 +3547,7 @@
         "stof/doctrine-extensions-bundle": 20,
         "doctrine/data-fixtures": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
+        "mrp/stripe-webhook-bundle": 20,
         "behat/common-contexts": 20,
         "behat/mink-extension": 20,
         "behat/mink-browserkit-driver": 20,

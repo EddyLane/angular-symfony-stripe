@@ -30,8 +30,8 @@
         "jms/serializer-bundle": "*",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "doctrine/data-fixtures":              "@dev",
-        "doctrine/doctrine-fixtures-bundle":   "dev-master@dev"
-
+        "doctrine/doctrine-fixtures-bundle":   "dev-master@dev",
+        "mrp/stripe-webhook-bundle": "dev-master"
 
     },
     "require-dev": {

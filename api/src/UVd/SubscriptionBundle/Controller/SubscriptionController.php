@@ -35,6 +35,7 @@ class SubscriptionController extends FOSRestController
         $user->setSubscription($subscription);
         $userManager = $this->get('uvd.user.user_manager');
         $userManager->save($user, true);
+        $this->getDoctrine()->getManager()->flush();
     }
 
 } 

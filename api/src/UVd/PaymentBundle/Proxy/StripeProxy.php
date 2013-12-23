@@ -12,6 +12,7 @@ use Stripe;
 use Stripe_Card;
 use Stripe_Customer;
 use Stripe_Plan;
+use Stripe_Invoice;
 
 class StripeProxy implements StripeProxyInterface
 {
@@ -54,6 +55,11 @@ class StripeProxy implements StripeProxyInterface
     public function createPlan(array $data)
     {
         return Stripe_Plan::create($data);
+    }
+
+    public function getStripeInvoices(array $data)
+    {
+        return Stripe_Invoice::all($data);
     }
 
 } 

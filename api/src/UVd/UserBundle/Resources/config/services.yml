@@ -4,6 +4,8 @@ parameters:
     uvd.user.user_manager.class: UVd\UserBundle\Manager\UserManager
     uvd.user.entity.user.class: UVd\UserBundle\Entity\User
 
+    uvd.user.stripe_webhook_listener.class: UVd\UserBundle\Listener\StripeWebhookListener
+
 services:
     authentication_handler:
         class:  %vendor_security.authentication_handler%
@@ -21,3 +23,8 @@ services:
         class: %uvd.user.user_manager.class%
         parent: uvd.payment.base_manager
         arguments: [%uvd.user.entity.user.class%]
+
+    uvd.user.stripe_webhook_listener:
+        class: %uvd.user.stripe_webhook_listener.class%
+        tags:
+            - { name: stripe_webhoook.event_listener, event: kernel.exception, method: onKernelException }
