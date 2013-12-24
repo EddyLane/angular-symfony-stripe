@@ -1,3 +1,8 @@
+uvd_webhook:
+    resource: "@UvdWebhookBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 pay:
     resource: UVd\PaymentBundle\Controller\PaymentController
     type:     rest

@@ -25,7 +25,8 @@ class AppKernel extends Kernel
 
             new UVd\PaymentBundle\UVdPaymentBundle(),
             new UVd\UserBundle\UVdUserBundle(),
-            new UVd\SubscriptionBundle\UVdSubscriptionBundle()
+            new UVd\SubscriptionBundle\UVdSubscriptionBundle(),
+            new Uvd\WebhookBundle\UvdWebhookBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

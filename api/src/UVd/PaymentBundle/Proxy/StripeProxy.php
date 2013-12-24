@@ -13,6 +13,7 @@ use Stripe_Card;
 use Stripe_Customer;
 use Stripe_Plan;
 use Stripe_Invoice;
+use Stripe_Event;
 
 class StripeProxy implements StripeProxyInterface
 {
@@ -50,6 +51,11 @@ class StripeProxy implements StripeProxyInterface
     public function retrieveCustomer($id)
     {
         return Stripe_Customer::retrieve($id);
+    }
+
+    public function retrieveEvent($id)
+    {
+        return Stripe_Event::retrieve($id);
     }
 
     public function createPlan(array $data)

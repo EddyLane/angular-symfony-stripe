@@ -11,6 +11,12 @@ namespace UVd\UserBundle\Manager;
 
 use UVd\PaymentBundle\Manager\BaseManager;
 
-class UserManager extends BaseManager {
+class UserManager extends BaseManager
+{
+
+    public function findByStripeId($stripeId)
+    {
+        return $this->getRepository()->findOneByStripeId($stripeId);
+    }
 
 }
