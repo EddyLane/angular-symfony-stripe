@@ -66,18 +66,6 @@ class StripeListenerPreUpdate {
 
                 $subscriptionData = $customer->updateSubscription(["plan" => $entity->getSubscription()->getName(), "prorate" => true]);
 
-                $payment = $this->container->get('uvd.payment.payment_manager')->create();
-
-                $payment
-                        ->setSubscription($entity->getSubscription())
-                        ->setCard($entity->getCards()->first())
-                        ->setToken($subscriptionData['id'])
-                        ->setUser($entity)
-                        ->setCompleted(true)
-                ;
-
-                $entity->addPayment($payment);
-
                 $entity->setSubscriptionStart(new \DateTime('@' . $subscriptionData['current_period_start']));
                 $entity->setSubscriptionEnd(new \DateTime('@' . $subscriptionData['current_period_end']));
 

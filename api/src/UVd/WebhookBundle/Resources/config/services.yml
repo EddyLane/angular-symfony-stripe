@@ -4,7 +4,8 @@ parameters:
 services:
     uvd.webhook.listener.stripe_webhook_listener:
         class: %uvd.webhook.listener.stripe_webhook_listener.class%
-        arguments: [@logger, @uvd.payment.stripe_proxy, @uvd.payment.payment_manager, @uvd.user.user_manager]
+        arguments: [@logger, @uvd.payment.stripe_proxy, @uvd.payment.payment_manager, @uvd.user.user_manager, @uvd.payment.card_manager]
         tags:
             - { name: kernel.event_subscriber }
             - { name: kernel.event_listener, event: mrp_stripe_webhook.generic, method: onGenericWebhookEvent }
+

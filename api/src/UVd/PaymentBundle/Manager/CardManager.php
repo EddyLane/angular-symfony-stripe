@@ -10,5 +10,8 @@ namespace UVd\PaymentBundle\Manager;
 
 class CardManager extends BaseManager
 {
-
+    public function findOneByToken($token)
+    {
+        return $this->getRepository()->findOneByToken($token);
+    }
 }

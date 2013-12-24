@@ -14,7 +14,7 @@ use UVd\PaymentBundle\Manager\BaseManager;
 class UserManager extends BaseManager
 {
 
-    public function findByStripeId($stripeId)
+    public function findOneByStripeId($stripeId)
     {
         return $this->getRepository()->findOneByStripeId($stripeId);
     }

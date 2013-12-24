@@ -14,6 +14,7 @@ use Stripe_Customer;
 use Stripe_Plan;
 use Stripe_Invoice;
 use Stripe_Event;
+use Stripe_Charge;
 
 class StripeProxy implements StripeProxyInterface
 {
@@ -56,6 +57,11 @@ class StripeProxy implements StripeProxyInterface
     public function retrieveEvent($id)
     {
         return Stripe_Event::retrieve($id);
+    }
+
+    public function retrieveCharge($id)
+    {
+        return Stripe_Charge::retrieve($id);
     }
 
     public function createPlan(array $data)

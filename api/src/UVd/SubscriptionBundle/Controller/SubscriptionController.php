@@ -30,12 +30,12 @@ class SubscriptionController extends FOSRestController
      */
     public function putSubscriptionSubscribesAction(Subscription $subscription)
     {
-        $subscription = $manager = $this->container->get('uvd.subscription.subscription_manager')->find($subscription->getId());
         $user = $this->getUser();
+        $subscription = $manager = $this->container->get('uvd.subscription.subscription_manager')->find($subscription->getId());
+
         $user->setSubscription($subscription);
         $userManager = $this->get('uvd.user.user_manager');
         $userManager->save($user, true);
-        $this->getDoctrine()->getManager()->flush();
     }
 
 } 

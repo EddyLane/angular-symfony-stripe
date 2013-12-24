@@ -72,7 +72,7 @@ class User extends BaseUser
      * @param \DateTime $subscriptionEnd
      * @return $this
      */
-    public function setSubscriptionEnd(\DateTime $subscriptionEnd)
+    public function setSubscriptionEnd(\DateTime $subscriptionEnd = null)
     {
         $this->subscriptionEnd = $subscriptionEnd;
         return $this;
@@ -90,7 +90,7 @@ class User extends BaseUser
      * @param \DateTime $subscriptionStart
      * @return $this
      */
-    public function setSubscriptionStart(\DateTime $subscriptionStart)
+    public function setSubscriptionStart(\DateTime $subscriptionStart = null)
     {
         $this->subscriptionStart = $subscriptionStart;
         return $this;
@@ -172,7 +172,7 @@ class User extends BaseUser
      * @param Subscription $subscription
      * @return $this
      */
-    public function setSubscription(Subscription $subscription)
+    public function setSubscription(Subscription $subscription = null)
     {
         $this->subscription = $subscription;
 
