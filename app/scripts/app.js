@@ -13,7 +13,7 @@ angular.module('angularStripeTestApp', [
         'angularPayments'
     ])
 
-    .config( function($httpProvider) {
+    .config(function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         $httpProvider.defaults.withCredentials = true;
@@ -28,6 +28,9 @@ angular.module('angularStripeTestApp', [
                 resolve: {
                     user: ['userService', function (userService) {
                         return userService;
+                    }],
+                    subscriptions: ['subscriptionService', function (subscriptionService) {
+                        return subscriptionService.subscriptions;
                     }]
                 }
             })
@@ -43,6 +46,7 @@ angular.module('angularStripeTestApp', [
             .otherwise({
                 redirectTo: '/subscriptions'
             });
+
         Stripe.setPublishableKey(STRIPE_KEY);
     })
 

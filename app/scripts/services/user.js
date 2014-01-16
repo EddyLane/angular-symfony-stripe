@@ -55,7 +55,7 @@ angular.module('angularStripeTestApp')
                 refresh: function () {
                     $http.get(USER_ME_URL)
                         .success(function (data) {
-                            angular.extend(self, data);
+                            angular.extend(fns, data);
                         });
                 },
 

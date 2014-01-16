@@ -2,9 +2,6 @@
 
 angular.module('angularStripeTestApp')
 
-    .factory('userManager', function ($resource) {
-        return $resource('user', {}, {
-            me: { method: 'GET', isArray: false },
-            get: { method: 'GET', isArray: false }
-        });
+    .factory('userManager', function ($resource, USER_URL) {
+        return $resource(USER_URL, { username: '@username' });
     });

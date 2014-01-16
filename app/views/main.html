@@ -1,61 +1,27 @@
-<div ng-if="!user.authenticated" class="container">
-    <div class="row">
-        <div class="col-md-3 col-md-offset-4" style="margin-top: 100px">
-            <div class="account-box">
-                <login-form user="user" ng-if="!formType"></login-form>
-                <a class="forgotLnk" href="http://www.jquery2dotnet.com">I can't access my account</a>
-                <div class="or-box" ng-show="!formType">
-                    <span class="or">OR</span>
-
-                    <div class="row">
-                        <div class="col-md-12 row-block">
-                            <button class="btn btn-primary btn-block" ng-click="formType = !formType">Create New
-                                Account
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div ng-if="user.authenticated" class="container">
-
-    <div class="row">
-        Logged in as {{ user.username }} <strong>({{ user.email }})</strong>
-        <hr>
-    </div>
-
-    <subscription-list></subscription-list>
-
+<div class="row">
+    Logged in as {{ user.username }} <strong>({{ user.email }})</strong>
     <hr>
+</div>
 
-    <div class="row" ng-show="selected.id === user.subscription.id">
+<subscription-list></subscription-list>
 
-        <strong>Subscription start</strong> {{ user.subscription_start|amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}
-        <strong>Subscription end</strong> {{ user.subscription_end|amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}
+<hr>
 
+<div class="row" ng-show="selected.id === user.stripe_profile.subscription.id">
 
-    </div>
-
-    <div class="row" ng-show="selected.id !== user.subscription.id">
-
-        <h3>Subscribing to <strong>{{ selected.name }}</strong> | {{ selected.price / 100 | currency:"£"}}<small>/mo</small></h3>
-
-            <div ng-if="selected.price > 0 && user.cards.length === 0">
-                <payment-form cards="user.cards"></payment-form>
-            </div>
-
-            <div ng-if="user.cards.length > 0">
-                <subscription-change-form user="user" card="user.cards[0]" subscription="selected"></subscription-change-form>
-            </div>
-    </div>
-
+    <strong>Subscription start</strong> {{ user.subscription_start|amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}
+    <strong>Subscription end</strong> {{ user.subscription_end|amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}
 
 
 </div>
-<div class="container">
-    <div class="row">
 
-    </div>
+<div class="row" ng-show="selected.id !== user.subscription.id">
+
+    <h3>Subscribing to <strong>{{ selected.name }}</strong> | {{ selected.price / 100 | currency:"£"}}<small>/mo</small></h3>
+
+        <payment-form cards="user.stripe_profile.cards" user="user" ng-if="!user.stripe_profile || !user.stripe_profile.cards"></payment-form>
+
+        <div ng-if="user.stripe_profile.cards.length > 0">
+            <subscription-change-form user="user.stripe_profile" card="user.stripe_profile.cards[0]" subscription="selected"></subscription-change-form>
+        </div>
 </div>

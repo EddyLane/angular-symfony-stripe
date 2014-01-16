@@ -4,14 +4,11 @@ angular.module('angularStripeTestApp')
     .directive('paymentForm', function () {
         return {
             restrict: 'E',
-            scope: {
-                cards: '='
-            },
             templateUrl: 'views/partials/payment-form.html',
-            controller: function ($scope, stripeFactory, Card) {
+            controller: function ($scope, stripeFactory, Card, userManager) {
 
                 /**
-                 * handle response errors
+                 * Handle response errors
                  *
                  * @param error
                  */
@@ -32,14 +29,17 @@ angular.module('angularStripeTestApp')
                     },
 
                     /**
-                     * reset all error messages
+                     * Reset all error messages
                      */
-                        resetErrors = function () {
+                    resetErrors = function () {
                         angular.forEach($scope.values, function (input) {
                             input.error = false;
                         });
                     },
 
+                    /**
+                     * Clear the form
+                     */
                     clearForm = function () {
                         angular.forEach($scope.values, function (input, key) {
                             $scope.values[key] = {};
@@ -47,15 +47,19 @@ angular.module('angularStripeTestApp')
                     },
 
                     /**
-                     * save response to database
+                     * Save response to database
                      */
-                        saveToken = function (token, cb) {
+                    saveToken = function (token, cb) {
 
                         var card = new Card({ token: token });
 
-                        card.$save(function (cardData) {
-                            angular.extend(card, cardData);
-                            $scope.cards.unshift(card);
+                        card.$save({ username: $scope.user.username }, function (card) {
+                            if (!$scope.user.stripe_profile) {
+                                $scope.user.stripe_profile = {
+                                    cards: []
+                                };
+                            }
+                            $scope.user.stripe_profile.cards.push(card);
                             cb();
                         });
 
@@ -86,7 +90,6 @@ angular.module('angularStripeTestApp')
                         month,
                         year;
 
-
                     $scope.submitted = true;
                     $scope.success = false;
                     $scope.error = false;
@@ -111,6 +114,7 @@ angular.module('angularStripeTestApp')
                     }, function (status, response) {
 
                         resetErrors();
+
                         if (status === 402) {
                             $scope.submitting = false;
                             handleError(response.error);

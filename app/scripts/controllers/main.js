@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('angularStripeTestApp')
-    .controller('MainCtrl', function ($scope, $http, stripeFactory, user, Card, Subscription) {
+    .controller('MainCtrl', function ($scope, $http, stripeFactory, user, Card, subscriptions) {
 
-        Subscription.query(function (subscriptions) {
-            $scope.subscriptions = subscriptions;
-        });
+        var selected = user.stripe_profile ? user.stripe_profile.subscription : undefined;
 
-        $scope.selected = angular.copy(user.subscription);
+        $scope.subscriptions = subscriptions;
+
+        $scope.selected = angular.copy(selected);
 
         $scope.subscribe = function (subscription) {
             $scope.selected = subscription;

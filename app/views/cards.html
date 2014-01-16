@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <payment-form cards="user.cards"></payment-form>
+        <payment-form cards="user.stripe_profile.cards"></payment-form>
     </div>
     <div class="row">
-        <card-list cards="user.cards"></card-list>
+        <card-list cards="user.stripe_profile.cards" user="user"></card-list>
     </div>
 </div>

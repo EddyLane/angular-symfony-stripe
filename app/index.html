@@ -34,14 +34,20 @@
     <header>
         <div class="navbar navbar-default" role="navigation">
             <div class="container">
-                <header-navigation></header-navigation>
+                <header-navigation ng-show="user.authenticated"></header-navigation>
             </div>
         </div>
     </header>
 
-    <div class="container" ng-view="">
-
+    <div class="container" ng-if="user.authenticated" ng-view>
     </div>
+
+    <div ng-if="user && !user.authenticated" class="container">
+        <login-form ng-if="!user.authenticated" user="user"></login-form>
+    </div>
+
+
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -84,6 +90,7 @@
         <script src="scripts/resources/subscription.js"></script>
 
         <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/subscription.js"></script>
 
         <script src="scripts/directives/register-form.js"></script>
         <script src="scripts/directives/login-form.js"></script>

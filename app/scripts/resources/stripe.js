@@ -8,5 +8,7 @@ angular.module('angularStripeTestApp')
         });
     })
     .factory('Card', function ($resource, CARD_URL) {
-        return $resource(CARD_URL, { id: '@id' });
+        return $resource(CARD_URL, { id: '@id' }, {
+            'update': { method:'PUT', isArray: false }
+        });
     })

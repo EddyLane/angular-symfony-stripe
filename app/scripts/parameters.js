@@ -6,6 +6,7 @@ angular.module('angularStripeTestApp')
     .constant('LOGOUT_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/security/logout')
     .constant('PAYMENT_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/payment/pays')
 
-    .constant('CARD_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/card/cards/:id')
-    .constant('SUBSCRIPTION_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/subscription/subscriptions/:subscriptionId')
-    .constant('USER_ME_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/user/me');
+    .constant('CARD_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/users/:username/cards/:id')
+    .constant('SUBSCRIPTION_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/subscriptions/:subscriptionId')
+    .constant('USER_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/users/:username')
+    .constant('USER_ME_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/me');
