@@ -2,7 +2,7 @@
 
 angular.module('angularStripeTestApp')
 
-    .service('userService', function ($http, $q, USER_ME_URL, LOGIN_URL, LOGOUT_URL) {
+    .service('userService', function ($http, $q, USER_ME_URL, LOGIN_URL, LOGOUT_URL, userManager) {
 
         var defer = $q.defer(),
 
@@ -88,7 +88,7 @@ angular.module('angularStripeTestApp')
 
         $http.get(USER_ME_URL)
             .success(function (data) {
-                defer.resolve(angular.extend(angular.extend(data, fns), { authenticated: true }));
+                defer.resolve(angular.extend(angular.extend(new userManager(data), fns), { authenticated: true }));
             })
             .error(function () {
                 defer.resolve(angular.extend(fns, { authenticated: false }));

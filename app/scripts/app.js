@@ -54,6 +54,7 @@ angular.module('angularStripeTestApp', [
 
         userService.then(function (user) {
             $rootScope.user = user;
+            console.log(user);
         });
 
     });

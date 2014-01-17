@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularStripeTestApp')
-    .controller('MainCtrl', function ($scope, $http, stripeFactory, user, Card, subscriptions) {
+    .controller('MainCtrl', function ($scope, $http, stripeFactory, user, Card, subscriptions, userManager) {
 
         var selected = user.stripe_profile ? user.stripe_profile.subscription : undefined;
 
@@ -10,7 +10,12 @@ angular.module('angularStripeTestApp')
         $scope.selected = angular.copy(selected);
 
         $scope.subscribe = function (subscription) {
-            $scope.selected = subscription;
+
+            userManager.subscribe({
+                username: $scope.user.username
+            }, {
+                subscription: subscription.name
+            });
         };
 
     });

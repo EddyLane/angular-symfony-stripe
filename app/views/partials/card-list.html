@@ -10,13 +10,13 @@
             <td>{{ card.card_type_name }}</td>
             <td>{{ card.exp_month }}/{{ card.exp_year }}</td>
             <td class="text-right">
-                <img ng-src="img/creditcards/{{ card.card_type_name }}.png" height="30">
+                <img ng-src="img/creditcards/{{ card.card_type_name|slugify }}.png" height="30">
             </td>
             <td class="text-right">
-                <button class="btn btn-xs btn-link" ng-click="defaultCard(card, $index)" ng-disabled="card.defaulting"><i class="glyphicon glyphicon-star"></i> Set as default</button>
+                <button class="btn btn-xs btn-link" ng-click="defaultCard(card, $index)" ng-disabled="card.defaulting || card.default"><i class="glyphicon glyphicon-star"></i> Set as default</button>
             </td>
             <td class="text-right">
-                <button class="btn btn-xs btn-link" ng-click="removeCard(card, $index)" ng-disabled="card.deleting"><i class="glyphicon glyphicon-remove"></i> Remove card</button>
+                <button class="btn btn-xs btn-link" ng-click="removeCard(card, $index)" ng-disabled="card.deleting || card.default"><i class="glyphicon glyphicon-remove"></i> Remove card</button>
             </td>
         </tr>
     </tbody>
