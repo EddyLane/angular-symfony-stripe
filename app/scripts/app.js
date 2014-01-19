@@ -22,6 +22,15 @@ angular.module('angularStripeTestApp', [
 
     .config(function ($routeProvider, $httpProvider, STRIPE_KEY) {
         $routeProvider
+            .when('/payments', {
+                templateUrl: 'views/payments.html',
+                controller: 'PaymentCtrl',
+                resolve: {
+                    payments: ['paymentService', function (paymentService) {
+                        return paymentService.payments;
+                    }]
+                }
+            })
             .when('/subscriptions', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl',

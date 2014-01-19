@@ -17,7 +17,8 @@ angular.module('angularStripeTestApp')
 
                 $scope.items = [
                     { name: 'Manage cards', link: '/cards', active: false },
-                    { name: 'Subscriptions', link: '/subscriptions', active: true }
+                    { name: 'Subscriptions', link: '/subscriptions', active: false },
+                    { name: 'Payments', link: '/payments', active: false }
                 ];
 
                 $scope.$on('$locationChangeSuccess', setActive);

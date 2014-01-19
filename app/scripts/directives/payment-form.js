@@ -51,15 +51,26 @@ angular.module('angularStripeTestApp')
                      */
                     saveToken = function (token, cb) {
 
-                        var card = new Card({ token: token });
+                        var card, i, cards, l;
+
+                        if (!$scope.user.stripe_profile) {
+                            $scope.user.stripe_profile = {
+                                cards: []
+                            };
+                        }
+
+                        card = new Card({ token: token });
+                        i = 0;
+                        cards = $scope.user.stripe_profile.cards;
+                        l = cards.length;
 
                         card.$save({ username: $scope.user.username }, function (card) {
-                            if (!$scope.user.stripe_profile) {
-                                $scope.user.stripe_profile = {
-                                    cards: []
-                                };
+
+                            for (; i < l; i++) {
+                                cards[i].default = false;
                             }
-                            $scope.user.stripe_profile.cards.push(card);
+
+                            $scope.user.stripe_profile.cards.unshift(card);
                             cb();
                         });
 

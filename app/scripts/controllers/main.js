@@ -12,7 +12,7 @@ angular.module('angularStripeTestApp')
         $scope.subscribe = function (subscription) {
 
             userManager.subscribe({
-                username: $scope.user.username
+                username_canonical: $scope.user.username_canonical
             }, {
                 subscription: subscription.name
             });

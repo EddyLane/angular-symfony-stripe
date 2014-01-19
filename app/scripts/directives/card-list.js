@@ -11,14 +11,12 @@ angular.module('angularStripeTestApp')
             templateUrl: 'views/partials/card-list.html',
             controller: function ($scope, Card) {
 
-
-
                 angular.extend($scope, {
 
                     removeCard: function (card, i) {
                         card.deleting = true;
                         Card.remove({
-                            username: $scope.user.username,
+                            username_canonical: $scope.user.username_canonical,
                             id: card.id
                         }, function () {
                             $scope.user.stripe_profile.cards.splice(i, 1);
@@ -26,11 +24,22 @@ angular.module('angularStripeTestApp')
                     },
 
                     defaultCard: function (card, i) {
+
+                        var cards = $scope.user.stripe_profile.cards,
+                            i = 0,
+                            l = cards.length;
+
+                        for (; i < l; i++) {
+                            cards[i].default = false;
+                        }
                         card.default = true;
+
                         Card.update({
-                            username: $scope.user.username,
+                            username_canonical: $scope.user.username_canonical,
                             id: card.id
-                        }, card);
+                        }, card, function () {
+
+                        });
                     }
 
                 });

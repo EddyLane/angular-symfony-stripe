@@ -8,7 +8,11 @@ angular.module('angularStripeTestApp')
 
             self = this,
 
+            data,
+
             fns = {
+
+                payments: [],
 
                 logout: function() {
 
@@ -53,6 +57,7 @@ angular.module('angularStripeTestApp')
                 },
 
                 refresh: function () {
+                    console.log(userManager.get())
                     $http.get(USER_ME_URL)
                         .success(function (data) {
                             angular.extend(fns, data);

@@ -1,8 +1,13 @@
-<div class="container">
-    <div class="row">
-        <payment-form cards="user.stripe_profile.cards"></payment-form>
-    </div>
-    <div class="row">
+<div class="row">
+    Logged in as {{ user.username }} <strong>({{ user.email }})</strong>
+    <hr>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
         <card-list cards="user.stripe_profile.cards" user="user"></card-list>
+    </div>
+    <div class="col-md-4">
+        <payment-form cards="user.stripe_profile.cards"></payment-form>
     </div>
 </div>

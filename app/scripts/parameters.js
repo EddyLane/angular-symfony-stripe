@@ -8,5 +8,5 @@ angular.module('angularStripeTestApp')
 
     .constant('CARD_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/users/:username/cards/:id')
     .constant('SUBSCRIPTION_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/subscriptions/:subscriptionId')
-    .constant('USER_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/users/:username')
+    .constant('USER_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/users/:username_canonical')
     .constant('USER_ME_URL', 'http://app.angular-symfony-stripe.local:8080/app_dev.php/me');
